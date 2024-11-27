@@ -11,7 +11,7 @@ export default function Page() {
       src: "/login.ico",
       headerText: "User login",
       cartText: "Login and access the learning content",
-      Link:"../signin"
+      Link:"../login"
     },
     {
       src: "/login.ico",
