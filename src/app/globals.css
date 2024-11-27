@@ -7,15 +7,39 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.mainContainer{
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.centerBox{
+  width: 500px;
+  background-color: var(--background);
+  min-height: 100px;
+  height: max-content;
+  display: flex;
+  justify-content: center;
+}
+
+.lms_Logo{
+
+
 }
