@@ -28,10 +28,10 @@
   width: calc(100%-10px);
   height: 70px;
   margin: 1% 0 1% 0;
-  border: 2px solid red;
   border-radius: 10px;
   background-color: var(--redNotificationx6);
   display: flex;
+  cursor: pointer;
 }
 
 .NotificationHeading {
@@ -52,4 +52,55 @@
   align-items: center;
   justify-content: flex-end;
   padding-right: 50px;
+}
+
+  
+  .RedBackground {
+    background-color: var(--redNotificationx6);
+    border: 2px solid red;
+  }
+  
+  .GreenBackground {
+    background-color:var(--GreenNotificationx6);
+    border: 2px solid green;
+  }
+  
+
+/* ========================Continue learning section======================= */
+
+.ContiueLearningContainer{
+    width: 100%;
+    min-height: 100px;
+    /* background-color: red; */
+    display: block;
+    justify-content: center;
+}
+
+.ContiueLearningH1{
+    font-size: x-large;
+    font-weight: bold;
+    padding-left: 0px;
+}
+.subContainer{
+    width: 100%;
+    min-height: 100px;
+    /* background-color: rgb(97, 84, 84); */
+}
+
+.CartContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* gap: 20px; */
+}
+
+.cart{
+    width: 48%;
+    margin: 1% 1% 1% 1%;
+    min-height: 80px;
+    height: auto;
+    background-color: rgba(128, 128, 128, 0.212);
+    cursor:pointer;
+    position: relative;
+    border-radius: 10px
 }

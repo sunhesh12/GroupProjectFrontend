@@ -2,27 +2,28 @@
 import React, { useEffect, useState } from "react";
 import style from "./dashboard.module.css"; // Import styles
 import Link from "next/link";
+import Cart from "@/component/cart/cart";
 import { useRouter } from "next/navigation"; // Use for redirection
 
 export default function DashboardPage() {
-  const [userName, setUserName] = useState<string>("Anura"); // State for user name
+  const [userName, setUserName] = useState<string | null>("null");
   const [notifications, setNotifications] = useState<
     { heading: string; text: string; link: string }[]
-  >([]); // State for notifications
+  >([
+    {
+      heading: "Loading...",
+      text: "Please wait while we load your notifications.",
+      link: "#",
+    },
+  ]);
 
-  const router = useRouter(); // Use Next.js router for navigation
-
-  useEffect(() => {
-    if (!userName) {
-      alert("There is an error in login! Please Try Again");
-      router.push("/login"); // Redirect to login
-    } else {
-      console.log("Welcome, " + userName);
-    }
-  }, [userName, router]);
+  const router = useRouter();
 
   useEffect(() => {
-    // Initialize with some notifications
+    // Simulate user data fetch
+    setUserName("Anura");
+
+    // Simulate notifications fetch
     setNotifications([
       {
         heading: "Assignment Deadline",
@@ -30,35 +31,77 @@ export default function DashboardPage() {
         link: "/assignments",
       },
       {
-        heading: "New Announcement",
-        text: "A new course module is now available.",
-        link: "/announcements",
+        heading: "Event Reminder",
+        text: "Don't miss the upcoming workshop this Friday.",
+        link: "/events",
       },
     ]);
-  }, []); // Run once on component mount
+  }, []);
+
+  useEffect(() => {
+    if (!userName) {
+      alert("There is an error in login! Please Try Again");
+      router.push("/login");
+    }
+  }, [userName, router]);
+
+  const cartData = [
+    {
+      src: "/login.ico",
+      headerText: "Create a study group",
+      cartText:
+        "Collaborate with your friends by making study groups to share resources",
+      Link: "#",
+    },
+    {
+      src: "/login.ico",
+      headerText: "Explore courses",
+      cartText:
+        "View the list of courses that need to be studied in within the semester",
+      Link: "#",
+    },
+    {
+      src: "/login.ico",
+      headerText: "Complete an assignment",
+      cartText: "Organize your semester by setting new tasks in the calendar",
+      Link: "#",
+    },
+    {
+      src: "/login.ico",
+      headerText: "Set the semester plan",
+      cartText: "Organize your semester by setting new tasks in the calendar",
+      Link: "#",
+    },
+  ];
 
   return (
     <div>
       <div className={style.GreetingMessage}>
         <h1>
-          Good Morning <span>{userName ? userName : "Guest"}</span>
+          Good Morning <span>{userName || "Guest"}</span>
         </h1>
       </div>
       <div className={style.NotificationsContainer}>
         {notifications.map((notification, index) => (
           <div
-            key={index}
-            className={style.Notification}
-            style={{
-              borderColor: notification.heading === "Assignment Deadline" ? "red" : "green",
-              backgroundColor:
-                notification.heading === "Assignment Deadline" ? "var(--redNotificationx6)" : "var(--redNotificationGreenx6)",
-            }}
+            key={index} // Ensure the key is directly on the element being iterated
+            className={`${style.Notification} ${
+              notification.heading === "Assignment Deadline"
+                ? style.RedBackground
+                : style.GreenBackground
+            }`}
           >
             <div className={style.NotificationHeading}>
-              <h2 style={{
-                color: notification.heading === "Assignment Deadline" ? "rgb(124, 10, 10)" : "rgb(12, 123,50)"
-              }}>{notification.heading}</h2>
+              <h2
+                style={{
+                  color:
+                    notification.heading === "Assignment Deadline"
+                      ? "rgb(124, 10, 10)"
+                      : "rgb(12, 123,50)",
+                }}
+              >
+                {notification.heading}
+              </h2>
               <p>{notification.text}</p>
             </div>
             <div className={style.AssignmentLink}>
@@ -68,6 +111,26 @@ export default function DashboardPage() {
             </div>
           </div>
         ))}
+      </div>
+      <div className={style.ContiueLearningContainer}>
+        <h1 className={style.ContiueLearningH1}>
+          Continue your journey of learning
+        </h1>
+        <div className={style.subContainer}>
+          <div className={style.CartContainer}>
+            {cartData.map((cartItem, index) => (
+              <div className={style.cart} key={index}>
+                <Link href={cartItem.Link} className="link">
+                  <Cart
+                    src={cartItem.src}
+                    header_Text={cartItem.headerText}
+                    cartText={cartItem.cartText}
+                  />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
