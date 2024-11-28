@@ -1,0 +1,15 @@
+.GreetingMessage{
+    width: calc(100%);
+    height: 50px;
+    /* background-color: red; */
+}
+
+.GreetingMessage h1{
+    font-size: xx-large;
+    color: var(--foreground);
+    font-weight: bolder;
+}
+
+.GreetingMessage h1 span{
+    color: gray;
+}
