@@ -7,7 +7,7 @@ import Form from "next/form";
 export default function signin() {
   const LoginIcon = "/logo.jpg";
   const SignInPageImage = "/signInPageImage.jpg";
-  const actionSubmitRouting = '#';
+  const actionSubmitRouting = '../dashboard';
 
   return (
     <>
