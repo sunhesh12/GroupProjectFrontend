@@ -106,7 +106,7 @@ export default function SideNavBar({
 
         <div className={style.endDiv}>
           <div className={style.settingDiv}>
-          <Link href={"#"}>
+          <Link href={"/settings"}>
               <NavComponent
                 icon={(
                   <Image

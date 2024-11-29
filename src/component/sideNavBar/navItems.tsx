@@ -14,7 +14,7 @@ export const navItems = [
       />
     ),
     label: "Dashboard",
-    link: "#",
+    link: "/dashboard",
   },
   {
     icon: (
