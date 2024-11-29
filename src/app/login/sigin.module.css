@@ -145,6 +145,14 @@
     left: 50;
 }
 
+.errorText{
+    color: red;
+    width: 100%;
+    text-align: center;
+    padding: 0 50px 0 50px;
+    /* background-color: green; */
+}
+
 @media (max-width: 1024px) { 
 
     .subContainer1{
