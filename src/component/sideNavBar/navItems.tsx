@@ -38,7 +38,7 @@ export const navItems = [
       />
     ),
     label: "Course",
-    link: "",
+    link: "/course",
   },
   {
     icon: (
