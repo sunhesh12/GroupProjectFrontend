@@ -1,0 +1,112 @@
+.mainWrapper {
+    width: 100%;
+    height: auto;
+    min-height: 100px;
+    display: block;
+  }
+  
+  .courseHeader {
+    width: 100%;
+    min-height: 100px;
+    height: auto;
+  }
+  
+  .heading {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    font-weight: bold;
+    padding-left: 40px;
+  }
+  
+  .subHeading {
+    font-size: 1rem;
+    color: gray;
+    margin-bottom: 20px;
+    padding-left: 40px;
+  }
+  
+  .filterCourse {
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .courseBody {
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-evenly;
+    padding: 1%;
+  }
+  
+  .cartLink {
+    width: 30%;
+    max-height: 300px;
+    border-radius: 10px;
+    margin: 15px;
+  }
+  
+  .searchBarContainer {
+    width: calc(100% / 3);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .searchIcon {
+    width: 50px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 10px;
+  }
+  
+  .inputContainer {
+    width: calc(100% - 50px);
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .inputContainer input {
+    height: 100%;
+    width: 90%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    color: rgb(0, 0, 0);
+  }
+  
+  .searchbarWrapper {
+    width: 80%;
+    height: 40px;
+    background-color: rgb(133, 133, 133);
+    display: flex;
+    border-radius: 10px;
+  }
+  
+  
+  .semesterSelector {
+    width: calc(100%);
+    display: flex;
+    justify-content: center;
+  }
+  
+  .semesterSelector select {
+    width: 80%;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgb(133, 133, 133);
+    padding-left: 10px;
+    color: white;
+    outline: none;
+  }
+
+  .semesterSelectors{
+    width: calc(100% / 3);
+  }
+  
