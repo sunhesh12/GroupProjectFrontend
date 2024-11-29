@@ -1,8 +1,9 @@
+// components/FrequentlyAccessedCourses.tsx
 import React from "react";
 import style from "./dashboard.module.css";
-import Image from "next/image";
 import { courses } from "@/utils/studentDasboarddb"; // Import the courses data
 import Link from "next/link";
+import CourseCart from "@/component/CourseCart/CourseCart";  // Import the CourseCart component
 
 const FrequentlyAccessedCourses: React.FC = () => {
   return (
@@ -13,26 +14,14 @@ const FrequentlyAccessedCourses: React.FC = () => {
       <div className={style.contiuneSemesterWorkTask}>
         {courses.map((course) => (
           <Link key={course.id} href={course.link} className={style.cartLink}>
-            <div  className={style.courseCart}>
-              <div className={style.CartImage}>
-                <Image
-                  className={style.courseCartImage}
-                  src={course.imageUrl}
-                  alt="cartImage"
-                  width={100}
-                  height={100}
-                />
-                <div className={style.whitecorner}>
-                  <p>{course.completion}% completed</p>
-                </div>
-              </div>
-              <div className={style.courseName}>
-                <h1>{course.name}</h1>
-              </div>
-              <div className={style.courseSemester}>
-                <p>{course.semester}</p>
-              </div>
-            </div>
+            <CourseCart
+              id={course.id}
+              imageUrl={course.imageUrl}
+              completion={course.completion}
+              name={course.name}
+              semester={course.semester}
+              link={course.link}
+            />
           </Link>
         ))}
       </div>
