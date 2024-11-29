@@ -6,6 +6,7 @@
   --background: #ffffff;
   --foreground: #171717;
   --gray:rgb(127,127,127);
+  --lightGrayx5:rgba(127, 127, 127, 0.5);
   --foregroundshadow: rgba(0,0,0,0.5);
   --redNotificationx6:rgba(252, 159, 161, 0.6);
   --GreenNotificationx6:rgba(33, 165, 50, 0.6);
