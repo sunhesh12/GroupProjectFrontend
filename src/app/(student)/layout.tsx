@@ -8,16 +8,17 @@ export default function SubLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div className={style.Mainwrapper}>
-      <div className={style.mainContainer}>
+      
           <SideNavBar
             systemName={"Learning Management System"}
             facultyName={"Faculty Of Computing"}
           />
-          {/* Main Content */}
-          <div className={style.container}>{children}</div>
-        </div>
-
+          
+        
+        <div className={style.mainContainer}>
+        <div className={style.container}>{children}</div>
         {/* <div className={style.footer}></div> */}
+        </div>
       </div>
     </>
   );

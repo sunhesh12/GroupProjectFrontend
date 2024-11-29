@@ -6,6 +6,7 @@ interface GreetingMessageProps {
 }
 
 const GreetingMessage: React.FC<GreetingMessageProps> = ({ userName }) => {
+  
   return (
     <div className={style.GreetingMessage}>
       <h1>
