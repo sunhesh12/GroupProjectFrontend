@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import style from "./student.module.css";
 import SideNavBar from "../../component/sideNavBar/sideNavBar";
