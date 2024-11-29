@@ -110,3 +110,79 @@
     width: calc(100% / 3);
   }
   
+  /* Modal Styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 600px;
+    text-align: center;
+  }
+  
+  .modalContent h2 {
+    margin-bottom: 20px;
+    color: red;
+    font-weight: bold;
+    font-size: x-large;
+  }
+  
+  .modalContent input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .modalContent button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 5px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .modalContent button:hover {
+    background-color: #363a36;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+  
+
+.modalContent {
+  position: relative;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 1px;
+  right: 10px;
+  font-size:larger;
+  cursor: pointer;
+  color: #000;
+}
+
+.closeIcon:hover {
+  color: red; /* Change color on hover */
+}
+
+

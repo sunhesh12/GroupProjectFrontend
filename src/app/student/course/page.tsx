@@ -10,6 +10,10 @@ import SemesterSelector from "./SemesterSelector";
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedSemester, setSelectedSemester] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
+  const [enrollmentKey, setEnrollmentKey] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   // Filter courses based on search query and selected semester
   const filteredCourses = courses1.filter((course) => {
@@ -25,6 +29,28 @@ export default function Page() {
   // Get unique semesters from courses
   const semesters = Array.from(new Set(courses1.map((course) => course.semester)));
 
+  // Function to handle course click (open enrollment key modal)
+  const handleCourseClick = (course: any) => {
+    if (course.isEnrolled) {
+      window.location.href = course.link;  // If already enrolled, navigate directly
+    } else {
+      setSelectedCourse(course);
+      setIsModalOpen(true);
+    }
+  };
+
+  // Handle enrollment key submission
+  const handleEnrollmentKeySubmit = () => {
+    if (enrollmentKey === selectedCourse?.enrollmentKey) {
+      // Mark the course as enrolled
+      selectedCourse.isEnrolled = true;
+      setIsModalOpen(false);
+      alert("Successfully enrolled in the course!");
+    } else {
+      setError("Invalid enrollment key. Please try again.");
+    }
+  };
+
   return (
     <div>
       <div className={style.mainWrapper}>
@@ -33,10 +59,10 @@ export default function Page() {
           <p className={style.subHeading}>
             List of all the courses available throughout the degree programme.
           </p>
-          
+
           <div className={style.filterCourse}>
             <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-            
+
             {/* Semester Selectors */}
             <div className={style.semesterSelectors}>
               <SemesterSelector
@@ -51,7 +77,11 @@ export default function Page() {
         <div className={style.courseBody}>
           {filteredCourses.length > 0 ? (
             filteredCourses.map((course) => (
-              <Link key={course.id} href={course.link} className={style.cartLink}>
+              <div
+                key={course.id}
+                className={style.cartLink}
+                onClick={() => handleCourseClick(course)}
+              >
                 <CourseCart
                   id={course.id}
                   imageUrl={course.imageUrl}
@@ -60,13 +90,37 @@ export default function Page() {
                   semester={course.semester}
                   link={course.link}
                 />
-              </Link>
+              </div>
             ))
           ) : (
             <p>No courses found.</p>
           )}
         </div>
       </div>
+
+      {/* Modal for Enrollment Key */}
+      {isModalOpen && selectedCourse && (
+        <div className={style.modal}>
+          <div className={style.modalContent}>
+            {/* Close icon (X) in the top-right corner */}
+            <span className={style.closeIcon} onClick={() => setIsModalOpen(false)}>
+              X
+            </span>
+
+            <h2>{selectedCourse.name}</h2> {/* Display course name */}
+            <br />
+            <h3>Enter Enrollment Key:</h3> {/* Prompt for key input */}
+            <input
+              type="text"
+              placeholder="Enrollment Key"
+              value={enrollmentKey}
+              onChange={(e) => setEnrollmentKey(e.target.value)}
+            />
+            <button onClick={handleEnrollmentKeySubmit}>Enroll me</button>
+            {error && <p className={style.error}>{error}</p>}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import style from "./sigin.module.css";
 import Image from "next/image";
 import { loginDB } from "@/utils/loggingdb"; // Import the credentials
 import { useRouter } from "next/navigation"; // For programmatic navigation
+import Cookies from "js-cookie"; // Import js-cookie to set and get cookies
 
 export default function SignIn() {
   const [username, setUsername] = useState("");
@@ -24,8 +25,18 @@ export default function SignIn() {
     );
 
     if (user) {
-      // Redirect to the dashboard if login is successful
-      router.push("/dashboard");
+      // Set cookies for user session
+      Cookies.set("username", user.username, { expires: 7 }); // Set the username in the cookie, expires in 7 days
+      Cookies.set("role", user.role, { expires: 7 }); // Set the role in the cookie, expires in 7 days
+
+      // Redirect based on the user's role
+      if (user.role === "student") {
+        router.push("/student/dashboard");
+      } else if (user.role === "faculty") {
+        router.push("/faculty/dashboard");
+      } else if (user.role === "admin") {
+        router.push("/admin/dashboard");
+      }
     } else {
       // Show error message if validation fails
       setError("Invalid username or password. Please try again.");

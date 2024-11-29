@@ -6,9 +6,11 @@ export interface Course {
     imageUrl: string;
     completion: number;
     link: string;
+    enrollmentKey?: string;  // Optional enrollment key for each course
+    isEnrolled: boolean;  // Track enrollment status
   }
   
-  // Define the courses data with more courses
+  // Define the courses data with more courses and enrollment keys
   export const courses1: Course[] = [
     {
       id: 1,
@@ -17,6 +19,8 @@ export interface Course {
       imageUrl: "/courseCart.jpeg",
       completion: 20,
       link: "#",
+      enrollmentKey: "software123",
+      isEnrolled: false,
     },
     {
       id: 2,
@@ -25,6 +29,8 @@ export interface Course {
       imageUrl: "/courseCart.jpeg",
       completion: 50,
       link: "#",
+      enrollmentKey: "data456",
+      isEnrolled: false,
     },
     {
       id: 3,
@@ -33,6 +39,8 @@ export interface Course {
       imageUrl: "/courseCart.jpeg",
       completion: 75,
       link: "#",
+      enrollmentKey: "db789",
+      isEnrolled: true,  // Already enrolled
     },
     {
       id: 4,
@@ -41,6 +49,8 @@ export interface Course {
       imageUrl: "/courseCart.jpeg",
       completion: 10,
       link: "#",
+      enrollmentKey: "os101",
+      isEnrolled: false,
     },
     {
       id: 5,
@@ -49,6 +59,8 @@ export interface Course {
       imageUrl: "/courseCart.jpeg",
       completion: 40,
       link: "#",
+      enrollmentKey: "project202",
+      isEnrolled: false,
     },
     {
       id: 6,
@@ -57,6 +69,8 @@ export interface Course {
       imageUrl: "/courseCart.jpeg",
       completion: 60,
       link: "#",
+      enrollmentKey: "ai303",
+      isEnrolled: true,  // Already enrolled
     },
     {
       id: 7,
@@ -65,6 +79,8 @@ export interface Course {
       imageUrl: "/courseCart.jpeg",
       completion: 30,
       link: "#",
+      enrollmentKey: "network404",
+      isEnrolled: false,
     },
     {
       id: 8,
@@ -73,6 +89,8 @@ export interface Course {
       imageUrl: "/courseCart.jpeg",
       completion: 90,
       link: "#",
+      enrollmentKey: "ml505",
+      isEnrolled: false,
     },
     {
       id: 9,
@@ -81,6 +99,8 @@ export interface Course {
       imageUrl: "/courseCart.jpeg",
       completion: 50,
       link: "#",
+      enrollmentKey: "cloud606",
+      isEnrolled: true,  // Already enrolled
     },
     {
       id: 10,
@@ -89,6 +109,8 @@ export interface Course {
       imageUrl: "/courseCart.jpeg",
       completion: 80,
       link: "#",
+      enrollmentKey: "web707",
+      isEnrolled: false,
     },
   ];
   
