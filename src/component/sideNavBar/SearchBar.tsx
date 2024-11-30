@@ -12,22 +12,27 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({ isOpen, toggleSideNav }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const size = 30;
+  const [hydrated, setHydrated] = useState(false); // To track hydration
 
-  function handleOpenSidebar() {
-    toggleSideNav(); // This will toggle the side nav bar's open/close state
-  }
+  // Ensure the component only renders after hydration
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   // Focus the input after the input field is rendered and visible
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && hydrated) {
       inputRef.current?.focus(); // Focus the input field when the sidebar is open
     }
-  }, [isOpen]); // Only run when `isOpen` changes
+  }, [isOpen, hydrated]);
+
+  // Avoid rendering until hydration is complete
+  if (!hydrated) return null;
 
   return (
     <div className={styles.searchBarContainer}>
       <div className={styles.searchbarwrapper}>
-        <div className={styles.searchIcon} onClick={handleOpenSidebar}>
+        <div className={styles.searchIcon} onClick={toggleSideNav}>
           <Image
             style={{ borderRadius: "50px" }}
             src="/search.png"

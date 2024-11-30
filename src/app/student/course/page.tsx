@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import style from "./course.module.css";
-import CourseCart from "@/component/CourseCart/CourseCart";
 import { courses1 } from "@/utils/studentcourse";
-import Link from "next/link";
 import SearchBar from "./SearchBar";
 import SemesterSelector from "./SemesterSelector";
+import CourseList from "./CourseList";
+import EnrollmentModal from "./EnrollmentModal";
 
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -31,7 +31,6 @@ export default function Page() {
     new Set(courses1.map((course) => course.semester))
   );
 
-  // Function to handle course click (open enrollment key modal)
   const handleCourseClick = (course: any) => {
     if (course.isEnrolled) {
       window.location.href = course.link; // If already enrolled, navigate directly
@@ -41,11 +40,9 @@ export default function Page() {
     }
   };
 
-  // Handle enrollment key submission
   const handleEnrollmentKeySubmit = () => {
     if (enrollmentKey === selectedCourse?.enrollmentKey) {
-      // Mark the course as enrolled
-      selectedCourse.isEnrolled = true;
+      selectedCourse.isEnrolled = true; // Mark the course as enrolled
       setIsModalOpen(false);
       alert("Successfully enrolled in the course!");
     } else {
@@ -63,12 +60,7 @@ export default function Page() {
           </p>
 
           <div className={style.filterCourse}>
-            <SearchBar
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-            />
-
-            {/* Semester Selectors */}
+            <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             <div className={style.semesterSelectors}>
               <SemesterSelector
                 selectedSemester={selectedSemester}
@@ -79,69 +71,21 @@ export default function Page() {
           </div>
         </div>
 
-        <div className={style.courseBody}>
-          {filteredCourses.length > 0 ? (
-            filteredCourses.map((course) => (
-              <div key={course.id} className={style.cartWrapper}>
-                {course.isEnrolled ? (
-                  <Link
-                    href={`${course.link}/${course.name}`}
-                    className={style.cartLink}
-                  >
-                    <CourseCart
-                      id={course.id}
-                      imageUrl={course.imageUrl}
-                      completion={course.completion}
-                      name={course.name}
-                      semester={course.semester}
-                    />
-                  </Link>
-                ) : (
-                  <div
-                    className={style.cartLink}
-                    onClick={() => handleCourseClick(course)}
-                  >
-                    <CourseCart
-                      id={course.id}
-                      imageUrl={course.imageUrl}
-                      completion={course.completion}
-                      name={course.name}
-                      semester={course.semester}
-                    />
-                  </div>
-                )}
-              </div>
-            ))
-          ) : (
-            <p>No courses found.</p>
-          )}
-        </div>
+        <CourseList
+          filteredCourses={filteredCourses}
+          handleCourseClick={handleCourseClick}
+        />
       </div>
 
-      {/* Modal for Enrollment Key */}
       {isModalOpen && selectedCourse && (
-        <div className={style.modal}>
-          <div className={style.modalContent}>
-            {/* Close icon (X) in the top-right corner */}
-            <span
-              className={style.closeIcon}
-              onClick={() => setIsModalOpen(false)}
-            >
-              X
-            </span>
-            <h2>{selectedCourse.name}</h2> {/* Display course name */}
-            <br />
-            <h3>Enter Enrollment Key:</h3> {/* Prompt for key input */}
-            <input
-              type="text"
-              placeholder="Enrollment Key"
-              value={enrollmentKey}
-              onChange={(e) => setEnrollmentKey(e.target.value)}
-            />
-            <button onClick={handleEnrollmentKeySubmit}>Enroll me</button>
-            {error && <p className={style.error}>{error}</p>}
-          </div>
-        </div>
+        <EnrollmentModal
+          selectedCourse={selectedCourse}
+          enrollmentKey={enrollmentKey}
+          setEnrollmentKey={setEnrollmentKey}
+          handleEnrollmentKeySubmit={handleEnrollmentKeySubmit}
+          error={error}
+          setIsModalOpen={setIsModalOpen}
+        />
       )}
     </div>
   );
