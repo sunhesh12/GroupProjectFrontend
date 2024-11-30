@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { topics, MainTopic } from "./subtopics";
+import { topics, MainTopic } from "../../../../utils/ModuleSubtopics";
 import style from "./couseId.module.css";
 import AnnouncementsSection from "./nnouncementsSection";
 import PinnedAnnouncementsSection from "./pinnedas";
@@ -12,6 +12,8 @@ import Image from "next/image";
 interface PageProps {
   params: { id: string | undefined }; // Allow undefined to be handled properly
 }
+
+
 
 const CoursePage: React.FC<PageProps> = ({ params }) => {
   const [decodedId, setDecodedId] = useState<string | null>(null);

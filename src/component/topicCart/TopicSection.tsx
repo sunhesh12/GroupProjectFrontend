@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { MainTopic, Subtopic } from "./subtopics";
+import { MainTopic, Subtopic } from "../../utils/ModuleSubtopics";
 import style from "./couseId.module.css";
 import RenderContent from "./RenderContent";
 

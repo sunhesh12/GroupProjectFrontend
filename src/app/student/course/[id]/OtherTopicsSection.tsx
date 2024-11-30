@@ -1,9 +1,9 @@
 // OtherTopicsSection.tsx
 
 import React from "react";
-import TopicSection from "./TopicSection";
+import TopicSection from "../../../../component/topicCart/TopicSection";
 import style from "./couseId.module.css";
-import { MainTopic } from "./subtopics";
+import { MainTopic } from "../../../../utils/ModuleSubtopics";
 
 interface OtherTopicsSectionProps {
   otherTopics: MainTopic[];

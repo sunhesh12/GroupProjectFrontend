@@ -1,7 +1,9 @@
-// navItems.ts
 import Image from "next/image";
 
+
 const size = 30;
+
+const routing = "student";
 
 export const navItems = [
   {
@@ -14,7 +16,7 @@ export const navItems = [
       />
     ),
     label: "Dashboard",
-    link: "/../student/dashboard",
+    link: `/../${routing}/dashboard`,
   },
   {
     icon: (
@@ -38,7 +40,7 @@ export const navItems = [
       />
     ),
     label: "Course",
-    link: "/../student/course",
+    link: `/../${routing}/course`,
   },
   {
     icon: (
@@ -62,6 +64,6 @@ export const navItems = [
       />
     ),
     label: "Message",
-    link: "/../student/messages",
+    link: `/../${routing}/messages`,
   },
 ];
