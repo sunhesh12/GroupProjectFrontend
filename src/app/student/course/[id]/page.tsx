@@ -3,8 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { topics, MainTopic } from "./subtopics";
-import TopicSection from "./TopicSection";
 import style from "./couseId.module.css";
+import AnnouncementsSection from "./nnouncementsSection";
+import PinnedAnnouncementsSection from "./pinnedas";
+import OtherTopicsSection from "./OtherTopicsSection";
 
 interface PageProps {
   params: { id: string | undefined }; // Allow undefined to be handled properly
@@ -13,6 +15,7 @@ interface PageProps {
 const CoursePage: React.FC<PageProps> = ({ params }) => {
   const [decodedId, setDecodedId] = useState<string | null>(null);
   const [openTopics, setOpenTopics] = useState<{ [key: string]: boolean }>({});
+  const [pinnedAnnouncements, setPinnedAnnouncements] = useState<MainTopic[]>([]); // Store pinned announcements
   const router = useRouter();
 
   const decodedIdParam = params?.id ?? ''; // Ensure `params` is not undefined and `id` exists
@@ -35,15 +38,31 @@ const CoursePage: React.FC<PageProps> = ({ params }) => {
     }
   }, [decodedIdParam]);
 
+  // Toggle function for main topics
   const toggleTopic = (topicId: string) => {
     const updatedState = { ...openTopics, [topicId]: !openTopics[topicId] };
     setOpenTopics(updatedState);
     localStorage.setItem("openTopicsState", JSON.stringify(updatedState));
   };
 
+  // Toggle pinning of announcements
+  const togglePin = (mainTopic: MainTopic) => {
+    if (pinnedAnnouncements.some((item) => item.id === mainTopic.id)) {
+      setPinnedAnnouncements((prev) =>
+        prev.filter((item) => item.id !== mainTopic.id)
+      );
+    } else {
+      setPinnedAnnouncements((prev) => [...prev, mainTopic]);
+    }
+  };
+
   if (!decodedId) {
     return <div>Loading...</div>;
   }
+
+  // Separate topics into categories
+  const announcements = topics.filter((topic) => topic.type.toLowerCase() === "announcement");
+  const otherTopics = topics.filter((topic) => topic.type.toLowerCase() !== "announcement");
 
   return (
     <>
@@ -60,16 +79,31 @@ const CoursePage: React.FC<PageProps> = ({ params }) => {
       <div className={style.MainWrapper}>
         <h1>{decodedId}</h1>
         <div className={style.container}>
-          {topics.map((mainTopic: MainTopic) => (
-            <TopicSection
-              key={mainTopic.id}
-              mainTopic={mainTopic}
-              openTopics={openTopics}
-              toggleTopic={toggleTopic}
-            />
-          ))}
+          {/* Render pinned announcements at the top */}
+          <PinnedAnnouncementsSection
+            pinnedAnnouncements={pinnedAnnouncements}
+            openTopics={openTopics}
+            toggleTopic={toggleTopic}
+            togglePin={togglePin}
+          />
+
+          {/* Render announcements */}
+          <AnnouncementsSection
+            announcements={announcements}
+            openTopics={openTopics}
+            toggleTopic={toggleTopic}
+            togglePin={togglePin}
+          />
+
+          {/* Render other topics */}
+          <OtherTopicsSection
+            otherTopics={otherTopics}
+            openTopics={openTopics}
+            toggleTopic={toggleTopic}
+            togglePin={togglePin}
+          />
         </div>
-        <div style={{width:"100%" , height:"200px"}}></div>
+        <div style={{ width: "100%", height: "200px" }}></div>
       </div>
     </>
   );

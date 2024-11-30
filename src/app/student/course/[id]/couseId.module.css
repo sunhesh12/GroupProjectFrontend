@@ -118,21 +118,155 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     overflow: hidden;
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: calc((300px / 16) * 9);
   }
 
-  .LinkButton {
+  .LinkButton, .DownloadButton{
     color: green; /* Default color for unvisited links */
     text-decoration: none;
   }
   
-  .LinkButton:visited {
+  .LinkButton:visited, .DownloadButton:visited {
     color: purple; /* Color for visited links */
   }
   
   .LinkButton:hover {
     text-decoration: underline; /* Optional: Underline on hover */
   }
+
+  .videoIcon {
+    width: auto;
+    height:fit-content;
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    color: gray;
+    font-size: small;
+    height: 30px;
+  }
+.subtopicItem {
+  display: flex;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.subtopicLine {
+    position: relative; /* Make the container relative for positioning the circle */
+    width: 2px; /* Line thickness */
+    height: 100%; /* Adjust as needed */
+    background-color: gray; /* Line color */
+    margin: 0 auto; /* Center the line horizontally */
+  }
+  
+  .subtopicLine::before {
+    content: ""; /* Required for pseudo-elements */
+    position: absolute;
+    top: 50%; /* Middle of the line */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Offset to center the circle */
+    width: 12px; /* Circle size */
+    height: 12px; /* Circle size */
+    background-color: gray; /* Circle color (same as line or different) */
+    border: 2px solid white; /* Optional: Border to make it stand out */
+    border-radius: 50%; /* Makes the shape a circle */
+  }
+  
+
+.subtopicContent {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px; /* Space between line and content */
+}
+
+.videoIcon {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.VideoWrapper {
+  margin-top: 10px;
+}
+
+.ImageWrapper {
+  margin-top: 10px;
+}
+
+.LinkWrapper {
+  margin-top: 10px;
+}
+
+.DownloadButton {
+  background-color: #000000;
+  border-radius: 10px;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: small;
+}
+
+.Downloadpdf{
+    cursor: pointer;
+}
+.LinkButton {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.LinkButton:hover {
+  color: #0056b3;
+}
+
+/* ====================== */
+
+.subtopicItem {
+    display: flex;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .subtopicLine {
+    width: 2px;
+    background-color: #000; /* Black line */
+    height: 100%;
+    position: absolute;
+    left: -10px; /* Adjust this to your needs */
+  }
+  
+  .subtopicContent {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px; /* Space between line and content */
+  }
+  
+  .videoIcon {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .VideoWrapper {
+    margin-top: 10px;
+  }
+  
+  .ImageWrapper {
+    margin-top: 10px;
+  }
+  
+  .LinkWrapper {
+    margin-top: 10px;
+  }
+  
+
+
+  /* =========================== */
+
+  
+
+
+  
   
   

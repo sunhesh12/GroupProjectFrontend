@@ -1,4 +1,5 @@
 export interface Subtopic {
+    // type(type: any): import("csstype").Property.BackgroundColor | undefined;
     id: string;
     title: string;
     description: string;
@@ -13,6 +14,7 @@ export interface Subtopic {
   }
   
   export interface MainTopic {
+    type:string;
     id: string;
     title: string;
     subtopics: Subtopic[];
@@ -22,13 +24,14 @@ export interface Subtopic {
     {
       id: "1",
       title: "Main Topic 1",
+      type:"announcement",
       subtopics: [
         {
           id: "1-1",
           title: "Subtopic 1.1",
           description: "An introduction to Subtopic 1.1.",
           media: {
-            image: { url: "/path/to/image.jpg", altText: "Image for Subtopic 1.1" },
+            image: { url: "/signInPageImage.jpg", altText: "Image for Subtopic 1.1" },
           },
         },
         {
@@ -44,6 +47,7 @@ export interface Subtopic {
     {
       id: "2",
       title: "Main Topic 2",
+      type:"lesson",
       subtopics: [
         {
           id: "2-1",
@@ -66,6 +70,7 @@ export interface Subtopic {
     {
       id: "3",
       title: "Main Topic 3",
+      type:"assignment",
       subtopics: [
         {
           id: "3-1",
@@ -88,6 +93,7 @@ export interface Subtopic {
     {
       id: "4",
       title: "Main Topic 4",
+      type:"lesson",
       subtopics: [
         {
           id: "4-1",
@@ -110,6 +116,7 @@ export interface Subtopic {
     {
       id: "5",
       title: "Main Topic 5",
+      type:"announcement",
       subtopics: [
         {
           id: "5-1",
