@@ -7,6 +7,7 @@ import style from "./couseId.module.css";
 import AnnouncementsSection from "./nnouncementsSection";
 import PinnedAnnouncementsSection from "./pinnedas";
 import OtherTopicsSection from "./OtherTopicsSection";
+import Image from "next/image";
 
 interface PageProps {
   params: { id: string | undefined }; // Allow undefined to be handled properly
@@ -66,18 +67,21 @@ const CoursePage: React.FC<PageProps> = ({ params }) => {
 
   return (
     <>
-      <div className={style.MainWrapper}>
+      <div className={style.MainWrapperHeding}>
         <button
           onClick={() => router.back()}
           className={style.BackButton}
           aria-label="Go Back"
         >
-          Go Back
+          <Image src={"/back.ico"} alt="back button" width={30} height={30} />
         </button>
+        <h1>{decodedId}</h1>
       </div>
+      
+      <Image className={style.courseCoverImage} src={"/courseCart.jpeg"} alt="Image" width={100} height={100} />
 
       <div className={style.MainWrapper}>
-        <h1>{decodedId}</h1>
+        
         <div className={style.container}>
           {/* Render pinned announcements at the top */}
           <PinnedAnnouncementsSection
