@@ -14,7 +14,7 @@ export const navItems = [
       />
     ),
     label: "Dashboard",
-    link: "/dashboard",
+    link: "/../student/dashboard",
   },
   {
     icon: (
@@ -38,7 +38,7 @@ export const navItems = [
       />
     ),
     label: "Course",
-    link: "/course",
+    link: "/../student/course",
   },
   {
     icon: (
@@ -62,6 +62,6 @@ export const navItems = [
       />
     ),
     label: "Message",
-    link: "",
+    link: "/../student/messages",
   },
 ];

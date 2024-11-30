@@ -12,6 +12,9 @@ const SemesterSelector: React.FC<SemesterSelectorProps> = ({
   setSelectedSemester,
   semesters,
 }) => {
+  // Sort semesters in ascending order
+  const sortedSemesters = [...semesters].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+
   return (
     <div className={style.semesterSelector}>
       <select
@@ -19,13 +22,13 @@ const SemesterSelector: React.FC<SemesterSelectorProps> = ({
         onChange={(e) => setSelectedSemester(e.target.value)}
       >
         <option value="">Select Semester</option>
-        {semesters.map((semester) => (
+        {sortedSemesters.map((semester) => (
           <option key={semester} value={semester}>
             {semester}
           </option>
         ))}
       </select>
-     </div>
+    </div>
   );
 };
 

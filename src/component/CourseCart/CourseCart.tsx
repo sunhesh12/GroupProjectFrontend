@@ -9,10 +9,9 @@ interface CourseCartProps {
   completion: number;
   name: string;
   semester: string;
-  link: string;
 }
 
-const CourseCart: React.FC<CourseCartProps> = ({ id, imageUrl, completion, name, semester, link }) => {
+const CourseCart: React.FC<CourseCartProps> = ({ id, imageUrl, completion, name, semester}) => {
   return (
     <div key={id} className={style.courseCart}>
       <div className={style.CartImage}>

@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import style from "./sigin.module.css";
 import Image from "next/image";
-import { loginDB } from "@/utils/loggingdb"; // Import the credentials
-import { useRouter } from "next/navigation"; // For programmatic navigation
-import Cookies from "js-cookie"; // Import js-cookie to set and get cookies
+import { loginDB } from "@/utils/loggingdb"; 
+import { authenticateUser } from "@/connectors/authConnector"; 
+import { useRouter } from "next/navigation"; 
 
 export default function SignIn() {
   const [username, setUsername] = useState("");
@@ -19,27 +19,25 @@ export default function SignIn() {
   function handleLogin(event: React.FormEvent) {
     event.preventDefault(); // Prevent form submission
 
-    // Validate credentials
-    const user = loginDB.find(
-      (u) => u.username === username && u.password === password
-    );
+    // Validate credentials using the connector
+    const result = authenticateUser(loginDB, username, password);
 
-    if (user) {
-      // Set cookies for user session
-      Cookies.set("username", user.username, { expires: 7 }); // Set the username in the cookie, expires in 7 days
-      Cookies.set("role", user.role, { expires: 7 }); // Set the role in the cookie, expires in 7 days
-
+    if (result.success && result.user) {
       // Redirect based on the user's role
-      if (user.role === "student") {
-        router.push("/student/dashboard");
-      } else if (user.role === "faculty") {
-        router.push("/faculty/dashboard");
-      } else if (user.role === "admin") {
-        router.push("/admin/dashboard");
+      switch (result.user.role) {
+        case "student":
+          router.push("/student/dashboard");
+          break;
+        case "faculty":
+          router.push("/faculty/dashboard");
+          break;
+        case "admin":
+          router.push("/admin/dashboard");
+          break;
       }
     } else {
       // Show error message if validation fails
-      setError("Invalid username or password. Please try again.");
+      setError(result.error || "An unexpected error occurred.");
     }
   }
 

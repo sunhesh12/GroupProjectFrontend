@@ -27,12 +27,14 @@ export default function Page() {
   });
 
   // Get unique semesters from courses
-  const semesters = Array.from(new Set(courses1.map((course) => course.semester)));
+  const semesters = Array.from(
+    new Set(courses1.map((course) => course.semester))
+  );
 
   // Function to handle course click (open enrollment key modal)
   const handleCourseClick = (course: any) => {
     if (course.isEnrolled) {
-      window.location.href = course.link;  // If already enrolled, navigate directly
+      window.location.href = course.link; // If already enrolled, navigate directly
     } else {
       setSelectedCourse(course);
       setIsModalOpen(true);
@@ -55,13 +57,16 @@ export default function Page() {
     <div>
       <div className={style.mainWrapper}>
         <div className={style.courseHeader}>
-          <h1 className={style.heading}>User Settings</h1>
+          <h1 className={style.heading}>Modules</h1>
           <p className={style.subHeading}>
             List of all the courses available throughout the degree programme.
           </p>
 
           <div className={style.filterCourse}>
-            <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <SearchBar
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
 
             {/* Semester Selectors */}
             <div className={style.semesterSelectors}>
@@ -77,19 +82,34 @@ export default function Page() {
         <div className={style.courseBody}>
           {filteredCourses.length > 0 ? (
             filteredCourses.map((course) => (
-              <div
-                key={course.id}
-                className={style.cartLink}
-                onClick={() => handleCourseClick(course)}
-              >
-                <CourseCart
-                  id={course.id}
-                  imageUrl={course.imageUrl}
-                  completion={course.completion}
-                  name={course.name}
-                  semester={course.semester}
-                  link={course.link}
-                />
+              <div key={course.id} className={style.cartWrapper}>
+                {course.isEnrolled ? (
+                  <Link
+                    href={`${course.link}/${course.name}`}
+                    className={style.cartLink}
+                  >
+                    <CourseCart
+                      id={course.id}
+                      imageUrl={course.imageUrl}
+                      completion={course.completion}
+                      name={course.name}
+                      semester={course.semester}
+                    />
+                  </Link>
+                ) : (
+                  <div
+                    className={style.cartLink}
+                    onClick={() => handleCourseClick(course)}
+                  >
+                    <CourseCart
+                      id={course.id}
+                      imageUrl={course.imageUrl}
+                      completion={course.completion}
+                      name={course.name}
+                      semester={course.semester}
+                    />
+                  </div>
+                )}
               </div>
             ))
           ) : (
@@ -103,10 +123,12 @@ export default function Page() {
         <div className={style.modal}>
           <div className={style.modalContent}>
             {/* Close icon (X) in the top-right corner */}
-            <span className={style.closeIcon} onClick={() => setIsModalOpen(false)}>
+            <span
+              className={style.closeIcon}
+              onClick={() => setIsModalOpen(false)}
+            >
               X
             </span>
-
             <h2>{selectedCourse.name}</h2> {/* Display course name */}
             <br />
             <h3>Enter Enrollment Key:</h3> {/* Prompt for key input */}
