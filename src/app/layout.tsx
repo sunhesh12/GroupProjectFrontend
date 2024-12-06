@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Work_Sans } from "next/font/google";
 import UniLogo from "@/components/uni-logo";
 
-import "@/styles/globals.css";
+import "@/app/globals.css";
 
 const workSansFont = Work_Sans({
   subsets: ["latin"],
