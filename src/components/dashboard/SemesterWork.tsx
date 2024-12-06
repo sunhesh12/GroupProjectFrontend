@@ -1,5 +1,5 @@
 import React from "react";
-import Task from "@/component/Task/Task";
+import Task from "@/components/Task/Task";
 import Image from "next/image";
 import style from "./dashboard.module.css";
 

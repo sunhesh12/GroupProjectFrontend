@@ -1,17 +1,12 @@
+import Link from "next/link";
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Work_Sans } from "next/font/google";
+import UniLogo from "@/components/uni-logo";
 
-import "./globals.css";
+import "@/styles/globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const workSansFont = Work_Sans({
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -26,13 +21,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={workSansFont.className}>
+        <nav aria-label="Site navbar" id="navbar">
+          <ul id="links" aria-label="List of links for the navigation">
+            <li>
+              <Link href="/">Home</Link>
+            </li>
+            <li>
+              <Link href="/contact">Contact</Link>
+            </li>
+            <li>
+              <Link href="/help">Need help</Link>
+            </li>
+          </ul>
+          <UniLogo />
+        </nav>
         {children}
       </body>
-      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+      <script
+        src="https://www.google.com/recaptcha/api.js"
+        async
+        defer
+      ></script>
     </html>
   );
 }

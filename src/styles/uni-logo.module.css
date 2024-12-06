@@ -1,0 +1,22 @@
+.logo {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-self: flex-end;
+  margin-left: auto;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+.text > h5 {
+  font-size: 10px;
+}
+
+.text > h4 {
+  font-weight: bold;
+}

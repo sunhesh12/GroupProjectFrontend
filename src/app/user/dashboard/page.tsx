@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie"; // Import js-cookie
 
 //component files
-import GreetingMessage from "@/component/dashboard/GreetingMessage";
-import Notifications from "@/component/dashboard/Notifications";
-import ContinueLearning from "@/component/dashboard/ContinueLearning";
-import SemesterWork from "@/component/dashboard/SemesterWork";
-import FrequentlyAccessedCourses from "@/component/dashboard/FrequentlyAccessedCourses";
-import AcademicPerfomance from "@/component/dashboard/academicPerfomance";
+import GreetingMessage from "@/components/dashboard/GreetingMessage";
+import Notifications from "@/components/dashboard/Notifications";
+import ContinueLearning from "@/components/dashboard/ContinueLearning";
+import SemesterWork from "@/components/dashboard/SemesterWork";
+import FrequentlyAccessedCourses from "@/components/dashboard/FrequentlyAccessedCourses";
+import AcademicPerfomance from "@/components/dashboard/academicPerfomance";
 
 //database utill files
 import { studentDasboarddb } from "@/utils/studentDasboarddb";

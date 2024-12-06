@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./student.module.css";
-import SideNavBar from "../../component/sideNavBar/sideNavBar";
+import SideNavBar from "../../components/sideNavBar/sideNavBar";
 
 export default function SubLayout({ children }: { children: React.ReactNode }) {
   return (

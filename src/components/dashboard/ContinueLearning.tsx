@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import Cart from "@/component/cart/cart";
+import Cart from "@/components/cart/cart";
 import style from "./dashboard.module.css";
 
 interface CartData {

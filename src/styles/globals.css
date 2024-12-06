@@ -44,6 +44,19 @@ body {
   justify-content: center;
 }
 
+#navbar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  padding: 10px 20px 10px 20px;
+}
+
+#links {
+  display: flex;
+  flex-direction: row;
+}
+
 ::-webkit-scrollbar {
   width: 0px;
 }
