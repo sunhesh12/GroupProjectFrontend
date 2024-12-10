@@ -1,7 +1,6 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { Work_Sans } from "next/font/google";
-import UniLogo from "@/components/uni-logo";
+import Navbar from "@/components/navbar/view";  
 
 import "@/app/globals.css";
 
@@ -22,20 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={workSansFont.className}>
-        <nav aria-label="Site navbar" id="navbar">
-          <ul id="links" aria-label="List of links for the navigation">
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/contact">Contact</Link>
-            </li>
-            <li>
-              <Link href="/help">Need help</Link>
-            </li>
-          </ul>
-          <UniLogo />
-        </nav>
+        <Navbar />
         {children}
       </body>
       <script
