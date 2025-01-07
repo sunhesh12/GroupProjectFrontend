@@ -8,7 +8,7 @@ const pangolin = Pangolin({
   weight: "400",
 });
 
-export default function HeroLarge() {
+export default function Hero() {
   return (
     <article id="hero" className={styles.hero}>
       <Image
@@ -34,7 +34,7 @@ export default function HeroLarge() {
         <Button isLink={true} href="/auth/signin">
           Sign in
         </Button>
-        <Button>Join LMS</Button>
+        <Button isLink={true} href="/auth/signup">Join LMS</Button>
       </section>
     </article>
   );

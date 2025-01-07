@@ -1,14 +1,13 @@
 import Image from "next/image";
 import style from "./sigin.module.css";
+import Button from "@/components/button/view";
 
 export default function SignIn() { 
   const LoginIcon = "/logo.jpg";
-  const SignInPageImage = "/signInPageImage.jpg";
 
   return (
     <div className={style.mainContainer}>
-      <div className={style.subContainer1}>
-        <div className={style.loginContainer}>
+        <article className={style.loginContainer}>
           <div className={style.loginIcon}>
             <div className={style.logoContainer}>
               <Image src={LoginIcon} alt="LMS Logo" width={80} height={80} />
@@ -22,7 +21,7 @@ export default function SignIn() {
               <input
                 type="text"
                 placeholder="Enter Your Username"
-                value={"Kalhara"}
+                defaultValue={"Kalhara"}
                 required
               />
             </div>
@@ -36,18 +35,12 @@ export default function SignIn() {
             </div>
             {/*error && <p className={style.errorText}>{error}</p>*/}
             <div className={style.inputFiledContainer}>
-              <button className={style.LoginButton} type="submit">
+              <Button>
                 Log In
-              </button>
+              </Button>
             </div>
           </form>
-        </div>
-      </div>
-      <div className={style.subContainer2}>
-        <Image src={SignInPageImage} alt="LMS Logo" width={100} height={100} />
-        <h1>Welcome to the Learning Management System</h1>
-        <p>Access your courses, tasks, and academic progress here.</p>
-      </div>
+        </article>
     </div>
   );
 }
