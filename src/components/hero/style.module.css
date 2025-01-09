@@ -46,10 +46,8 @@
 }
 
 .nav {
-  display: grid;
-  grid-template-columns: repeat(2, 250px);
-  align-items: center;
-  align-self: start;
+  display: flex;
+  flex-direction: row;
   gap:5px;
 }
 
@@ -127,9 +125,5 @@
 
   .hero {
     gap: 2px;
-  }
-
-  .nav {
-    grid-template-columns: repeat(2, minmax(100px, 150px));
-  }
+  } 
 }

@@ -11,6 +11,7 @@ export default async function signup(formData: FormData) {
 		'mobile_no': formData.get('mobile_no')?.toString(),
 		'address': formData.get('address')?.toString(),
 		'password': formData.get('password')?.toString(),
+		'confirm_password': formData.get('confirm_password')?.toString(),
 		'course_id': formData.get('course_id')?.toString(),
 	};
 
@@ -21,8 +22,12 @@ export default async function signup(formData: FormData) {
 		'mobile_no': z.string().nonempty(),
 		'address': z.string().nonempty(),
 		'course_id': z.string().nonempty(),
+		'password': z.string().nonempty(),
+		'confirm_password': z.string().nonempty(),
+	}).refine(data => data.password === data.confirm_password, {
+		message: 'Passwords do not match',
+		path: ['confirm_password'],
 	});
-
 
 	// Checking for form validation error
 	const parsedForm = formSchema.safeParse(formValues);

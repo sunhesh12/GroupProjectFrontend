@@ -31,10 +31,10 @@ export default function Hero() {
         </span>
       </p>
       <section className={styles.nav}>
-        <Button isLink={true} href="/auth/signin">
+        <Button width="120px" isLink={true} href="/auth/signin">
           Sign in
         </Button>
-        <Button isLink={true} href="/auth/signup">Join LMS</Button>
+        <Button width="120px" isLink={true} href="/auth/signup">Join LMS</Button>
       </section>
     </article>
   );
