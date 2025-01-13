@@ -2,7 +2,7 @@
 	background-color: #EFEFEF;
 	border:1px solid #E3E3E3;
 	padding: 15px 10px ;
-	font-size: var(--fontSize-base);
+	font-size: 15px;
 	border-radius: 10px;
 }
 

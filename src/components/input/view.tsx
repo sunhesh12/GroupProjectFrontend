@@ -11,7 +11,7 @@ type Option = {
 };
 
 type InputFieldProps = {
-  label: string;
+  label?: string;
   placeholder?: string;
   type: "email" | "text" | "password" | "tel" | "number" | "select";
   min?: number;
@@ -20,6 +20,8 @@ type InputFieldProps = {
   options?: Option[];
   defaultValue?: string;
   required?: boolean;
+  backgroundColor?: string;
+  borderColor?: string;
 };
 
 export default function InputField({
@@ -31,7 +33,9 @@ export default function InputField({
   max,
   options,
   defaultValue,
-  required
+  required,
+  backgroundColor,
+  borderColor
 }: InputFieldProps) {
   if (type === "select") {
     return (
@@ -39,7 +43,13 @@ export default function InputField({
         <label htmlFor="email" className={styles.label}>
           {label}
         </label>
-        <select name={name} defaultValue={defaultValue} className={styles.input} required={required}>
+        <select
+          style={{ backgroundColor, borderColor }}
+          name={name}
+          defaultValue={defaultValue}
+          className={styles.input}
+          required={required}
+        >
           {options?.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
@@ -58,13 +68,13 @@ export default function InputField({
           type={type}
           min={min}
           max={max}
-          className={styles.input}
-          style={workSans.style}
+          className={styles.input + " " + workSans.className}
+          style={{ backgroundColor, borderColor }}
           name={name}
           id={name}
           placeholder={placeholder}
           defaultValue={defaultValue}
-		  required={required}
+          required={required}
         />
       </div>
     );
