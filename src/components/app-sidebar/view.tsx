@@ -25,6 +25,7 @@ export default function AppSidebar() {
           type="text"
           backgroundColor="#141414"
           borderColor="#343434"
+          color="white"
           name="Search anything"
           placeholder="Search"
         />

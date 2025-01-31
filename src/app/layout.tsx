@@ -22,7 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={workSansFont.className}>
         <Navbar />
-        {children}
+        <main>
+          {children}
+        </main>
       </body>
       <script
         src="https://www.google.com/recaptcha/api.js"

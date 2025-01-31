@@ -22,6 +22,7 @@ type InputFieldProps = {
   required?: boolean;
   backgroundColor?: string;
   borderColor?: string;
+  color?: string;
 };
 
 export default function InputField({
@@ -35,7 +36,8 @@ export default function InputField({
   defaultValue,
   required,
   backgroundColor,
-  borderColor
+  borderColor,
+  color
 }: InputFieldProps) {
   if (type === "select") {
     return (
@@ -44,7 +46,7 @@ export default function InputField({
           {label}
         </label>
         <select
-          style={{ backgroundColor, borderColor }}
+          style={{ backgroundColor, borderColor, color }}
           name={name}
           defaultValue={defaultValue}
           className={styles.input}
@@ -69,7 +71,7 @@ export default function InputField({
           min={min}
           max={max}
           className={styles.input + " " + workSans.className}
-          style={{ backgroundColor, borderColor }}
+          style={{ backgroundColor, borderColor, color }}
           name={name}
           id={name}
           placeholder={placeholder}
