@@ -1,3 +1,5 @@
+import InputField from "@/components/input/view";
+
 export default function CourseCreatePage() {
 	return (
 		<>
@@ -6,7 +8,7 @@ export default function CourseCreatePage() {
 				<p>Create a new course for the faculty</p>
 			</header>
 			<form>
-				 
+				<InputField type="text" name="name" label="Course Name" />
 			</form>
 		</>
 	)
