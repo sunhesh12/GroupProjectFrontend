@@ -79,7 +79,7 @@ export default function AppSidebar() {
             >
               Messages
             </SidebarLink>
-          </li>
+          </li> 
           <div id="profile-data" className={styles.profileContainer}>
             <SidebarLink
               icon="/icons/gear-solid.svg"
