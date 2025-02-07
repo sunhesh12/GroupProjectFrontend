@@ -1,0 +1,23 @@
+.link {
+	text-decoration: none;
+	color: white;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: stretch;
+	padding: 10px 10px 10px 10px;
+	width: 100%;
+	border-radius: 5px;
+	gap:8px;
+}
+
+
+.linkText {
+	display: flex;
+	flex-direction: column;
+	gap:2px;
+}
+
+.link:hover {
+	background-color: #302B2B;
+}
