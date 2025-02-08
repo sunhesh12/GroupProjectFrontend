@@ -11,7 +11,7 @@ type Option = {
 };
 
 type InputFieldProps = {
-  label?: string;
+  label: string;
   placeholder?: string;
   type: "email" | "text" | "password" | "tel" | "number" | "select";
   min?: number;
