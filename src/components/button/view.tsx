@@ -4,12 +4,13 @@ import { HTMLAttributes, ReactNode } from "react";
 import { Work_Sans } from "next/font/google";
 
 const workSans = Work_Sans({
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 type ButtonProps = {
   children?: ReactNode;
   isLink?: boolean;
+  className?: string;
   href?: string;
   width?: string;
   fontSize?: string;
@@ -22,24 +23,22 @@ export default function Button({
   href,
   width,
   fontSize,
-  type
+  type,
+  className,
 }: ButtonProps) {
   // Any additional props
   const props: HTMLAttributes<HTMLElement> = {
     "aria-label": "Button",
     role: "button",
+    style: { fontSize: fontSize, width: width },
+    className: styles.button + " " + workSans.className + " " + className,
   };
 
-  if(isLink && type) throw new Error("You can't give a type for the links");
+  if (isLink && type) throw new Error("You can't give a type for the links");
 
   if (!isLink) {
     return (
-      <button
-        type={type}
-        className={styles.button + " " + workSans.className}
-        style={{ fontSize: fontSize, width: width }}
-        {...props}
-      >
+      <button type={type} {...props}>
         {children}
       </button>
     );
@@ -48,12 +47,7 @@ export default function Button({
       throw new Error("href is required for link type button");
     }
     return (
-      <Link
-        className={styles.button + " " + workSans.className}
-        style={{ fontSize: fontSize, width: width }}
-        href={href}
-        {...props}
-      >
+      <Link href={href} {...props}>
         {children}
       </Link>
     );

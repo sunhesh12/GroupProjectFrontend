@@ -39,3 +39,8 @@
 	margin-top:60px;
 	margin-bottom: 10px;
 }
+
+.basicInfo {
+	display: flex;
+	flex-direction: column;
+}
