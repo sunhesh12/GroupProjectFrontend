@@ -1,5 +1,6 @@
+import routes from "@/utils/backend/routes";
 export default async function createUser(formData: FormData) {
-  const request = await fetch(`${process.env.BACKEND_URL}/api/v1/users`, {
+  const request = await fetch(routes.users.create, {
     method: "POST",
     body: formData,
   });
