@@ -1,208 +1,27 @@
-.mainContainer{
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--background);
-    display: flex;
+.signInForm {
+    display:flex;
+    flex-direction: column;
+    gap:20px;
+    width:400px;
+    margin-top:30px;
 }
 
-.subContainer1 {
-    width: 40vw;
-    height: 100vh;
-    background-color: var(--background);
+.formHeader {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.loginContainer{
-    width: 25vw;
-    height: 80vh;
-    background-color: var(--background);
-    border: none;
-    border-radius: 20px;
-    box-shadow: 5px 5px 15px var(--foregroundshadow);
-    display: block;
-}
-
-.loginIcon{
+.button {
+    align-self: center;
     width: 100%;
-    height: 80px;
-    margin-top:50px;
-    /* background-color: red; */
+    margin-top:20px;
+}
+
+.page {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.logoContainer{
-    width: 80px;
-    height: 80px;
-    background-color: var(--background);
-}
-
-.LoginText{
-    width: 100%;
-    height: 70px;
-    /* background-color: red; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.LoginText h1{
-    color: var(--foreground);
-    font-size: xx-large;
-    font-weight: bolder;
-}
-
-.formContainer{
-    width: 100%;
-    height: calc(50%);
-    /* background-color: red; */
-}
-
-.inputFiledContainer{
-    width: 100%;
-    height: 70px;
-    /* background-color: blue; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.inputFiledContainer input{
-    width: 80%;
-    height: 40px;
-    border-radius: 10px;
-    padding-left: 10px;
-    color: var(--foreground);
-    outline: none;
-    box-shadow: 5px 5px 10px var(--foregroundshadow);
-}
-
-.LoginButton{
-    width: 50%;
-    height: 40px;
-    border-radius: 10px;
-    font-size: larger;
-    font-weight: bolder;
-    background-color: var(--foreground);
-    color: var(--background);
-}
-
-
-
-.subContainer2 {
-    position: relative; /* Ensures positioning for the pseudo-element */
-    width: 70vw;
-    height: 100%;
-}
-
-.subContainer2::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Black with 50% opacity */
-    pointer-events: none; /* Ensures it doesn't block interactions with the image */
-}
-
-.subContainer2 img {
-    width: 100%; /* Adjust width as needed */
-    height: 100%; /* Adjust height as needed */
-    object-fit: cover; /* Keeps the image's aspect ratio */
-}
-
-.subContainer2 h1{
-    color: var(--background);
-    font-size: large;
-    font-weight: bold;
-}
-.subContainer2 p{
-    
-    color: var(--background);
-    font-size: medium;
-    font-weight: bold;
-}
-
-.subContainer2 h1::after{
-    content: '"The function of education is to teach one to think intensively and to think critically. Intelligence plus character—that is the goal of true education. Education without morals is like a ship without a compass, merely wandering nowhere. A true education empowers individuals to not only seek personal success but also contribute meaningfully to the betterment of society."';
-    position: absolute;
-    width: 90%;
-    text-align: justify;
-    top: 100;
-    left: 50;
-}
-
-.subContainer2 p::after{
-    content: '– Dr. Martin Luther King Jr. (extended interpretation)';
-    position: absolute;
-    width: 90%;
-    text-align: justify;
-    top:260;
-    left: 50;
-}
-
-.errorText{
-    color: red;
-    width: 100%;
-    text-align: center;
-    padding: 0 50px 0 50px;
-    /* background-color: green; */
-}
-
-@media (max-width: 1024px) { 
-
-    .subContainer1{
-        width: 50vw;
-    }
-    .subContainer2 {
-        width: 50vw;
-    }
-
-    .loginContainer{
-        width: 40vw;
-    }
-    
-    .subContainer2 h1{
-        color: var(--background);
-        font-size: large;
-        font-weight: bold;
-    }
-    .subContainer2 p{
-        
-        color: var(--background);
-        font-size: medium;
-        font-weight: bold;
-    }
-    
-    .subContainer2 h1::after{
-        width: 80%;
-    }
-    
-    .subContainer2 p::after{
-        top:420;
-    }
-    
-
-}
-
-@media (max-width: 768px){
-
-    .mainContainer{
-        overflow: hidden;
-    }
-    .subContainer1{
-        width: 100vw;
-    }
-    .subContainer2 {
-        width: 0vw;
-    }
-
-    .loginContainer{
-        width: 70vw;
-    }
-    
 }
