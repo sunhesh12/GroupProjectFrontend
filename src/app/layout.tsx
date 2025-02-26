@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Work_Sans } from "next/font/google";
-import Navbar from "@/components/navbar/view";  
+import Navbar from "@/components/navbar/view";
+import { SessionProvider } from "next-auth/react";
 
 import "@/app/globals.css";
 
@@ -19,18 +20,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={workSansFont.className}>
-        <Navbar />
-        <main>
-          {children}
-        </main>
-      </body>
-      <script
-        src="https://www.google.com/recaptcha/api.js"
-        async
-        defer
-      ></script>
-    </html>
+    <SessionProvider>
+      <html lang="en">
+        <body className={workSansFont.className}>
+          <Navbar />
+          <main>{children}</main>
+        </body>
+        <script
+          src="https://www.google.com/recaptcha/api.js"
+          async
+          defer
+        ></script>
+      </html>
+    </SessionProvider>
   );
 }
