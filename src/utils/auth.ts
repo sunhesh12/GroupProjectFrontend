@@ -10,6 +10,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         email: {},
         password: {},
       },
+
       authorize: async (credentials) => {
         let currentUser = null; 
         const {email, password} = await signInSchema.parseAsync(credentials); 
@@ -28,7 +29,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             const { user, token } = response.payload;
             currentUser = {
               id: user.id,
-              name: user.Full_Name,
+              name: user.Full_name,
               email: user.Email,
               profilePicture: user.Profile_Picture,
               accessToken: token,
@@ -54,6 +55,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
+    authorized: async ({auth}) => {
+      return !!auth;
+    },
+
     jwt: async ({ token, user }) => {
       if (user) {
         token.user = user;
