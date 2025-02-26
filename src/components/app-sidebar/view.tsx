@@ -1,11 +1,21 @@
+"use client";
+import { useState } from "react";
+import { useSession } from "next-auth/react";
 import styles from "./style.module.css";
 import Image from "next/image";
 import SidebarLink from "./sidebar-link/view";
 import InputField from "@/components/input/view";
+import ToggleButton from "./toggle-button/view";
 
 export default function AppSidebar() {
+  const [expanded, toggleExpanded] = useState(true);
+  const { data: session } = useSession();
+  console.log(session);
   return (
-    <aside className={styles.sidebar}>
+    <aside
+      className={styles.sidebar}
+      style={{ width: expanded ? "unset" : "70px" }}
+    >
       <header className={styles.sidebarHeaderContainer}>
         <div>
           <Image
@@ -19,6 +29,7 @@ export default function AppSidebar() {
           <h2 className={styles.sidebarHeader}>Learning management system</h2>
           <h3 className={styles.sidebarSubHeader}>Faculty of computing</h3>
         </div>
+        <ToggleButton expanded={expanded} toggleExpanded={toggleExpanded} />
       </header>
       <form className={styles.searchForm}>
         <InputField
@@ -79,7 +90,7 @@ export default function AppSidebar() {
             >
               Messages
             </SidebarLink>
-          </li> 
+          </li>
           <div id="profile-data" className={styles.profileContainer}>
             <SidebarLink
               icon="/icons/gear-solid.svg"
@@ -91,14 +102,14 @@ export default function AppSidebar() {
             <div className={styles.profile}>
               <div id="profile-pic">
                 <SidebarLink
-                  icon="/profile-pic.jpg"
+                  icon={"/icons/user.svg"}
                   alt="An image of a person"
                   href="/app/profile"
                   dimensions={{ width: 30, height: 30 }}
                   rounded={true}
                 >
-                  <div className={styles.username}>W.D.Y.R.Kalhara</div>
-                  <div className={styles.email}>kalharaweragala@gmail.com</div>
+                  <div className={styles.username}>{session?.user.name}</div>
+                  <div className={styles.email}>{session?.user.email}</div>
                 </SidebarLink>
               </div>
             </div>
