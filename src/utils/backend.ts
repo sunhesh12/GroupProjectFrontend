@@ -14,7 +14,7 @@ export type APIResponse<PayloadType> = {
 };
 
 export interface User {
-  Full_Name: string;
+  Full_name: string;
   Age: string;
   Email: string;
   Mobile_No: string;
