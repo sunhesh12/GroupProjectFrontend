@@ -1,3 +1,4 @@
+"use client";
 import { Work_Sans } from "next/font/google";
 import styles from "./style.module.css";
 
