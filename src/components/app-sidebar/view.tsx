@@ -1,56 +1,84 @@
 "use client";
-import { useState } from "react";
-import { useSession } from "next-auth/react";
+import React, { useState } from "react";
+import { useSession, signOut } from "next-auth/react";
+import type { Dispatch, SetStateAction } from "react";
 import styles from "./style.module.css";
 import Image from "next/image";
 import SidebarLink from "./sidebar-link/view";
 import InputField from "@/components/input/view";
 import ToggleButton from "./toggle-button/view";
+import Menu from "@/components/menu/view";
 
-export default function AppSidebar() {
-  const [expanded, toggleExpanded] = useState(true);
+interface AppSidebarProps {
+  expanded: boolean;
+  toggleExpanded: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function AppSidebar({
+  expanded,
+  toggleExpanded,
+}: AppSidebarProps) {
+  const [sessionMenu, toggleSessionMenu] = useState(false);
   const { data: session } = useSession();
-  console.log(session);
   return (
     <aside
       className={styles.sidebar}
-      style={{ width: expanded ? "unset" : "70px" }}
+      style={{
+        width: expanded ? "unset" : "70px",
+        alignItems: expanded ? "unset" : "center",
+      }}
     >
       <header className={styles.sidebarHeaderContainer}>
-        <div>
+        <div
+          className={styles.title}
+          style={{
+            justifyContent: expanded ? "left" : "center",
+            flexDirection: expanded ? "row" : "column",
+            gap: expanded ? undefined : "20px",
+          }}
+        >
           <Image
             src="/unilogo.webp"
             alt="Logo of University Of Sri Jayewardenepura"
             width="40"
             height="35"
           />
+          {expanded && (
+            <div>
+              <h2 className={styles.sidebarHeader}>
+                Learning management system
+              </h2>
+              <h3 className={styles.sidebarSubHeader}>Faculty of computing</h3>
+            </div>
+          )}
+          <ToggleButton expanded={expanded} toggleExpanded={toggleExpanded} />
         </div>
-        <div>
-          <h2 className={styles.sidebarHeader}>Learning management system</h2>
-          <h3 className={styles.sidebarSubHeader}>Faculty of computing</h3>
-        </div>
-        <ToggleButton expanded={expanded} toggleExpanded={toggleExpanded} />
+        {expanded && (
+          <form className={styles.searchForm}>
+            <InputField
+              type="text"
+              backgroundColor="#141414"
+              borderColor="#343434"
+              color="white"
+              name="Search anything"
+              placeholder="Search"
+            />
+          </form>
+        )}
       </header>
-      <form className={styles.searchForm}>
-        <InputField
-          type="text"
-          backgroundColor="#141414"
-          borderColor="#343434"
-          color="white"
-          name="Search anything"
-          placeholder="Search"
-        />
-      </form>
       <nav className={styles.nav}>
-        <header>
-          <h2 className={styles.navHeader}>Navigation</h2>
-        </header>
+        {expanded && (
+          <header>
+            <h2 className={styles.navHeader}>Navigation</h2>
+          </header>
+        )}
         <ul className={styles.navList}>
           <li className={styles.navItem}>
             <SidebarLink
               icon="/icons/home.svg"
               alt="An icon of a home"
               href="/app/dashboard"
+              expanded={expanded}
             >
               Dashboard
             </SidebarLink>
@@ -60,6 +88,7 @@ export default function AppSidebar() {
               icon="/icons/calendar.svg"
               alt="An icon of a calendar"
               href="/app/calendar"
+              expanded={expanded}
             >
               Calendar
             </SidebarLink>
@@ -69,6 +98,7 @@ export default function AppSidebar() {
               icon="/icons/book.svg"
               alt="An icon of a book"
               href="/app/courses"
+              expanded={expanded}
             >
               Courses
             </SidebarLink>
@@ -78,6 +108,7 @@ export default function AppSidebar() {
               icon="/icons/exams.svg"
               alt="An icon of a exam"
               href="/app/examinations"
+              expanded={expanded}
             >
               Examinations
             </SidebarLink>
@@ -87,6 +118,7 @@ export default function AppSidebar() {
               icon="/icons/message.svg"
               alt="An icon of with a letter"
               href="/app/messages"
+              expanded={expanded}
             >
               Messages
             </SidebarLink>
@@ -96,17 +128,37 @@ export default function AppSidebar() {
               icon="/icons/gear-solid.svg"
               alt="An icon of a cog wheel"
               href="/app/settings"
+              expanded={expanded}
             >
               Settings
             </SidebarLink>
             <div className={styles.profile}>
               <div id="profile-pic">
+                {sessionMenu && (
+                  <Menu
+                    options={[
+                      {
+                        name: "Sign out",
+                        action: () => {
+                          signOut();
+                        },
+                      },
+                      {
+                        name: "Profile",
+                        action: () => {},
+                      },
+                    ]}
+                  />
+                )}
                 <SidebarLink
                   icon={"/icons/user.svg"}
                   alt="An image of a person"
-                  href="/app/profile"
                   dimensions={{ width: 30, height: 30 }}
                   rounded={true}
+                  onClick={() => {
+                    toggleSessionMenu((sessionMenu) => !sessionMenu);
+                  }}
+                  expanded={expanded}
                 >
                   <div className={styles.username}>{session?.user.name}</div>
                   <div className={styles.email}>{session?.user.email}</div>
