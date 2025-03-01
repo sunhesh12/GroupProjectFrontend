@@ -24,8 +24,15 @@
 
 .sidebarHeaderContainer {
 	display: flex;
+	flex-direction: column;
+	height:200px;
+	width: 100%;
+}
+
+.title {
+	display: flex;
 	flex-direction: row;
-	gap: 10px;
+	gap: 15px;
 	padding: 5px 5px;
 	align-items: center;
 }
