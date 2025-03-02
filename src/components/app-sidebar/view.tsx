@@ -97,10 +97,10 @@ export default function AppSidebar({
             <SidebarLink
               icon="/icons/book.svg"
               alt="An icon of a book"
-              href="/app/courses"
+              href="/app/modules"
               expanded={expanded}
             >
-              Courses
+              Modules
             </SidebarLink>
           </li>
           <li className={styles.navItem}>
@@ -136,16 +136,23 @@ export default function AppSidebar({
               <div id="profile-pic">
                 {sessionMenu && (
                   <Menu
+                    position={{
+                      right: "0px",
+                      bottom: "60px",
+                    }}
                     options={[
+                      {
+                        name: "Profile",
+                        action: () => {},
+                      },
                       {
                         name: "Sign out",
                         action: () => {
                           signOut();
                         },
-                      },
-                      {
-                        name: "Profile",
-                        action: () => {},
+                        styles: {
+                          color: "red",
+                        },
                       },
                     ]}
                   />

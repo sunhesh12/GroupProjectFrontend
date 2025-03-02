@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import styles from "./style.module.css";
+import style from "./style.module.css";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, ReactNode, useMemo } from "react";
@@ -27,7 +27,7 @@ function LinkIcon({ icon, alt, dimensions, rounded }: LinkIconProps) {
   return (
     <Image
       alt={alt ?? "An icon"}
-      className={styles.linkIcon}
+      className={style.linkIcon}
       src={icon}
       width={dimensions?.width ?? 15}
       height={dimensions?.height ?? 15}
@@ -50,6 +50,7 @@ type SidebarLinkProps = {
   children?: ReactNode;
   onClick?: MouseEventHandler;
   expanded: boolean;
+  styles?: CSSProperties;
 };
 
 export default function SidebarLink({
@@ -61,6 +62,7 @@ export default function SidebarLink({
   rounded,
   onClick,
   expanded,
+  styles
 }: SidebarLinkProps) {
   const pathname = usePathname();
   const [isActive, setActive] = useState(false);
@@ -80,9 +82,10 @@ export default function SidebarLink({
         backgroundColor: isActive ? "#302B2B" : undefined,
         justifyContent: expanded ? "left" : "center",
         width: expanded ? "100%" : "40px",
+        ...styles
       },
       onClick,
-      className: styles.link,
+      className: style.link,
     };
   }, [isActive ,onClick, expanded]);
 
@@ -99,7 +102,7 @@ export default function SidebarLink({
             />
           )}
         </div>
-        {expanded && <div className={styles.linkText}>{children}</div>}
+        {expanded && <div className={style.linkText}>{children}</div>}
       </button>
     );
   }
@@ -116,7 +119,7 @@ export default function SidebarLink({
           />
         )}
       </div>
-      {expanded && <div className={styles.linkText}>{children}</div>}
+      {expanded && <div className={style.linkText}>{children}</div>}
     </Link>
   );
 }

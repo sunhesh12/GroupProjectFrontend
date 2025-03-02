@@ -1,7 +1,42 @@
+"use client";
+
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import useTime from "@/hooks/use-time";
+
 export default function DashboardPage() {
+  const {data: session, status} = useSession();
+  const router = useRouter();
+  const {isMorning} = useTime();
+
+  if(status === "unauthenticated") {
+    router.push("/auth/signin");
+  }
+
+  if(status === "loading") {
+    return (
+      <div>
+        Loading
+      </div>
+    )
+  }
+
   return (
     <div>
-      <header>Welcome W.D.Y.R. Kalhara</header>
+      <header>
+        <h1>
+          {isMorning ? "Good morning" : "Good evening"}
+          {" "}
+          {session?.user.name}
+        </h1>
+        <article id="important">
+           
+        </article>
+        <div id="quick-access">
+          
+        </div>
+      </header>
       <article id="menu">
         <header>Continue your journey of learning</header>
         <ul>

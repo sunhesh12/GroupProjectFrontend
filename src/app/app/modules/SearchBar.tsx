@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./course.module.css";
+import style from "./page.module.css";
 import Image from "next/image";
 
 interface SearchBarProps {
