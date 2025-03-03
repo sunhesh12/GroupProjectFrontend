@@ -4,11 +4,11 @@
 	justify-content: center;
 	background-color: #272727;
 	color: white;
-	padding: 10px 5px;
+	padding: 10px 10px;
 	border: none;
 	border-radius: 8px;
 	text-decoration: none;
-	font-size: var(--fontSize-base);
+	font-size: 20px;
 	cursor: pointer;
 }
 

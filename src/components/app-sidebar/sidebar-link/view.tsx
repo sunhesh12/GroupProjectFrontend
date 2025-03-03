@@ -1,21 +1,56 @@
 "use client";
 
 import Link from "next/link";
-import styles from "./style.module.css";
+import style from "./style.module.css";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, ReactNode, useMemo } from "react";
+import type { CSSProperties, MouseEventHandler } from "react";
 
-type SidebarLinkProps = {
+interface LinkIconProps {
   icon: string;
   alt: string;
-  href: string;
+  dimensions?: {
+    width: number;
+    height: number;
+  };
+  rounded?: boolean;
+}
+
+interface ComponentProps {
+  className?: string;
+  style: CSSProperties;
+  onClick?: MouseEventHandler;
+}
+
+function LinkIcon({ icon, alt, dimensions, rounded }: LinkIconProps) {
+  return (
+    <Image
+      alt={alt ?? "An icon"}
+      className={style.linkIcon}
+      src={icon}
+      width={dimensions?.width ?? 15}
+      height={dimensions?.height ?? 15}
+      style={{
+        borderRadius: rounded ? "100%" : undefined,
+      }}
+    />
+  );
+}
+
+type SidebarLinkProps = {
+  icon?: string;
+  alt?: string;
+  href?: string;
   dimensions?: {
     width: number;
     height: number;
   };
   rounded?: boolean;
   children?: ReactNode;
+  onClick?: MouseEventHandler;
+  expanded: boolean;
+  styles?: CSSProperties;
 };
 
 export default function SidebarLink({
@@ -25,6 +60,9 @@ export default function SidebarLink({
   href,
   dimensions,
   rounded,
+  onClick,
+  expanded,
+  styles
 }: SidebarLinkProps) {
   const pathname = usePathname();
   const [isActive, setActive] = useState(false);
@@ -36,27 +74,52 @@ export default function SidebarLink({
       setActive(false);
     }
   }, [pathname, href]);
+
+  // Common props for button and
+  const props = useMemo<ComponentProps>(() => {
+    return {
+      style: {
+        backgroundColor: isActive ? "#302B2B" : undefined,
+        justifyContent: expanded ? "left" : "center",
+        width: expanded ? "100%" : "40px",
+        ...styles
+      },
+      onClick,
+      className: style.link,
+    };
+  }, [isActive ,onClick, expanded]);
+
+  if (!href) {
+    return (
+      <button {...props}>
+        <div>
+          {icon && alt && (
+            <LinkIcon
+              icon={icon}
+              alt={alt}
+              dimensions={dimensions}
+              rounded={rounded}
+            />
+          )}
+        </div>
+        {expanded && <div className={style.linkText}>{children}</div>}
+      </button>
+    );
+  }
+
   return (
-    <Link
-      className={styles.link}
-      style={isActive ? { backgroundColor: "#302B2B" } : undefined}
-      href={href}
-    >
+    <Link href={href} {...props}>
       <div>
-        <Image
-          alt={alt}
-          className={styles.linkIcon}
-          src={icon}
-          width={dimensions?.width ?? 15}
-          height={dimensions?.height ?? 15}
-          style={{
-            borderRadius: rounded ? "100%" : undefined,
-          }}
-        />
+        {icon && alt && (
+          <LinkIcon
+            icon={icon}
+            alt={alt}
+            dimensions={dimensions}
+            rounded={rounded}
+          />
+        )}
       </div>
-      <div className={styles.linkText}>
-        {children}
-      </div>
+      {expanded && <div className={style.linkText}>{children}</div>}
     </Link>
   );
 }

@@ -1,3 +1,4 @@
+"use client";
 import { Work_Sans } from "next/font/google";
 import styles from "./style.module.css";
 
@@ -11,9 +12,9 @@ type Option = {
 };
 
 type InputFieldProps = {
-  label: string;
+  label?: string;
   placeholder?: string;
-  type: "email" | "text" | "password" | "tel" | "number" | "select";
+  type: "email" | "text" | "password" | "tel" | "number" | "select" | "file";
   min?: number;
   max?: number;
   name: string;
@@ -25,6 +26,21 @@ type InputFieldProps = {
   color?: string;
 };
 
+/**
+ * @props InputFieldProps
+ *   - label?: string
+ *   - placeholder?: string
+ *   - type: "email" | "text" | "password" | "tel" | "number" | "select"  | "file"
+ *   - min?: number
+ *   - max?: number
+ *   - name: string
+ *   - options?: Option[]
+ *   - defaultValue?: string
+ *   - required?: boolean
+ *   - backgroundColor?: string
+ *   - borderColor?: string
+ *   - color?: string
+ */
 export default function InputField({
   label,
   placeholder,

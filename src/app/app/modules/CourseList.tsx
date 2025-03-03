@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./course.module.css";
+import style from "./page.module.css";
 import Link from "next/link";
 import CourseCart from "@/components/CourseCart/CourseCart";
 
