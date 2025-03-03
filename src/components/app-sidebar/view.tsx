@@ -24,7 +24,7 @@ export default function AppSidebar({
     <aside
       className={styles.sidebar}
       style={{
-        width: expanded ? "unset" : "70px",
+        width: expanded ? "300px" : "70px",
         alignItems: expanded ? "unset" : "center",
       }}
     >
@@ -143,7 +143,9 @@ export default function AppSidebar({
                     options={[
                       {
                         name: "Profile",
-                        action: () => {},
+                        action: () => {
+
+                        },
                       },
                       {
                         name: "Sign out",

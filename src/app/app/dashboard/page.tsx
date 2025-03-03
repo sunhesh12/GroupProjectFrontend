@@ -1,50 +1,34 @@
-"use client";
+import {auth} from "@/utils/auth";
+import {redirect} from "next/navigation";
+import {user} from "@/utils/backend";
+import Greeting from "./greeting";
+import style from "./page.module.css";
+import Role from "./role";
+import Menu from "./menu";
 
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import useTime from "@/hooks/use-time";
+export default async function DashboardPage() {
+  // This session will be fowarded to rest of the components
+  const session = await auth();
 
-export default function DashboardPage() {
-  const {data: session, status} = useSession();
-  const router = useRouter();
-  const {isMorning} = useTime();
-
-  if(status === "unauthenticated") {
-    router.push("/auth/signin");
+  if(!session || !session.user) {
+    redirect("/auth/signin");
   }
 
-  if(status === "loading") {
-    return (
-      <div>
-        Loading
-      </div>
-    )
+  // Current user payload
+  const currentUser = await user.get(session?.user.id!);
+
+  if(!currentUser?.payload) {
+    throw new Error("No user payload recieved from API");
   }
 
+  console.log(currentUser);
   return (
     <div>
-      <header>
-        <h1>
-          {isMorning ? "Good morning" : "Good evening"}
-          {" "}
-          {session?.user.name}
-        </h1>
-        <article id="important">
-           
-        </article>
-        <div id="quick-access">
-          
-        </div>
+      <header className={style.dashboardHeader}>
+        <Greeting name={currentUser.payload.Full_name} />
+        <Role role={currentUser.payload.Role} />
       </header>
-      <article id="menu">
-        <header>Continue your journey of learning</header>
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </article>
+      <Menu role={currentUser.payload.Role} />
       <article>
         <header>Your activities</header>
       </article>

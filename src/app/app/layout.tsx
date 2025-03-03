@@ -17,7 +17,7 @@ export default function AppRootLayout({
       <div
         id="appContent"
         className={styles.content}
-        style={{ marginLeft: expanded ? "310px" : "70px" }}
+        style={{ marginLeft: expanded ? "300px" : "70px" }}
       >
         {children}
       </div>

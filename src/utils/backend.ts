@@ -29,6 +29,17 @@ export interface User {
   id: string;
 }
 
+export interface Module {
+  id: string,
+  module_name: string;
+  credit_value: string;
+  practical_exam_count: string | null;
+  writing_exam_count: string | null;
+  course_id: string;
+  created_at: string | null;
+  updated_at: string | null;
+}
+
 export type UserWithToken = {
   user: User;
   token: string;
@@ -98,8 +109,52 @@ const user = {
     },
     signout: async (formData: FormData) => {},
   },
+  get: async (id: string) => {
+    try {
+      const request = await fetch(`${url}/api/v1/users/${id}`);
+      if(request.status === 200) {
+        const result = (await request.json()) as APIResponse<User>;
+        return result;
+      } else if(request.status === 422) {
+        const result = (await request.json()) as APIResponse<User>;
+        return result;
+      } else if(request.status === 500) {
+        const result = (await request.json()) as APIResponse<User>;
+        return result;
+      } else {
+        const result = (await request.json()) as APIResponse<User>;
+        return result;
+      }
+    } catch(error) {
+      console.log("Error while fetching data: ", error);
+    }
+  }
 };
 
+const modules = {
+  getAll: async () => {
+    try {
+      const request = await fetch(`${url}/api/v1/modules`);
+      if(request.status === 200) {
+        const result = (await request.json()) as APIResponse<Module[]>;
+        return result;
+      } else if(request.status === 422) {
+        const result = (await request.json()) as APIResponse<Module[]>;
+        return result;
+      } else if(request.status === 500) {
+        const result = (await request.json()) as APIResponse<Module[]>;
+        return result;
+      } else {
+        const result = (await request.json()) as APIResponse<Module[]>;
+        return result;
+      }
+    } catch(error) {
+      console.log("Error while fetching data: ", error);
+    }
+  }
+}
+
+Object.freeze(modules);
 Object.freeze(user);
 
-export { user };
+export { user, modules };

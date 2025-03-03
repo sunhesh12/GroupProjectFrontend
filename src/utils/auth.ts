@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { user } from "@/utils/backend";
 import { signInSchema } from "@/utils/schema";
+import {redirect} from "next/navigation";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
