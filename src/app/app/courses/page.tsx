@@ -9,7 +9,6 @@ export default function CoursesPage() {
 
       {/* module management development from developer Heshan 2025-02-07 */}
 
-      <div className={style.moduleManagement}>
       <h1>Modules</h1>
       <p>List of all the course available throughout the degree programme.</p>
       <div className={style.filterDiv}>
@@ -67,7 +66,6 @@ export default function CoursesPage() {
             </div>
           </div>
         ))}
-      </div>
       </div>
     </>
   );

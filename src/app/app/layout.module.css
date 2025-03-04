@@ -1,11 +1,9 @@
 .main {
 	display: flex;
 	flex-direction: row;
-	overflow: hidden;
 }
 
 .content {
 	padding:10px 20px;
 	width: 100%;
-	overflow: hidden;
 }
