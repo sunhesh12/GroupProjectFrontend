@@ -29,9 +29,9 @@ export default function Menu({ role }: MenuProps) {
     links = [
       {
         icon: faGraduationCap,
-        title: "Manage courses",
+        title: "Manage resources",
         caption: "Create or manage new courses for your student",
-        link: "/app/courses/create",
+        link: "/app/admin/manage/students",
       },
       {
         icon: faPlus,

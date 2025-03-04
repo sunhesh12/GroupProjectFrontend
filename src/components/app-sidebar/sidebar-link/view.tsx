@@ -3,9 +3,9 @@
 import Link from "next/link";
 import style from "./style.module.css";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { useState, useEffect, ReactNode, useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 import type { CSSProperties, MouseEventHandler } from "react";
+import useIsCurrentPath from "@/hooks/use-is-currentpath";
 
 interface LinkIconProps {
   icon: string;
@@ -64,16 +64,7 @@ export default function SidebarLink({
   expanded,
   styles
 }: SidebarLinkProps) {
-  const pathname = usePathname();
-  const [isActive, setActive] = useState(false);
-
-  useEffect(() => {
-    if (pathname === href) {
-      setActive(true);
-    } else {
-      setActive(false);
-    }
-  }, [pathname, href]);
+  const {isCurrent: isActive} = useIsCurrentPath(href);
 
   // Common props for button and
   const props = useMemo<ComponentProps>(() => {

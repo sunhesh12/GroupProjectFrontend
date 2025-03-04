@@ -1,4 +1,9 @@
 /* Table Container */
+.wrapper {
+  width: 100%;
+  overflow-x: auto
+}
+
 .courseTable {
     width: 100%;
     border-collapse: collapse;
@@ -25,10 +30,13 @@
   /* Table Body */
   .courseTableBody {
     background: #fff;
+    width: 100%;
+    overflow: scroll;
   }
   
   .courseTableRow {
     transition: background 0.2s ease-in-out;
+    overflow:scroll;
   }
   
   .courseTableRow:nth-child(even) {

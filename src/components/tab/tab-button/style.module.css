@@ -1,0 +1,17 @@
+.tabButton {
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color:black;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.tabButton:hover {
+    background-color: #e3e3e348;
+}
+
+.tabButton {
+    transition: background 0.2s ease-in-out;
+}

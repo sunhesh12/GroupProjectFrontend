@@ -32,7 +32,7 @@ export default async function ModuleManage() {
         <h1>Manage all the modules</h1>
         <p>Filters</p>
         <form></form>
-      </header>
+      </header> 
       <Table columns={["Module name", "Course", "Credit value"]}>
         {allModules?.payload?.map(({module_name, }, index) => (
           <TableRow values={["CSO", "CS", "2"]} key={index} />

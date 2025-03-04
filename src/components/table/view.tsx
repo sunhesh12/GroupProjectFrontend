@@ -29,15 +29,17 @@ export function Table({ columns, children }: TableProps) {
     gridTemplateColumns: `repeat(${columns.length}, minmax(200px, 1fr))`,
   };
   return (
-    <table className={styles.courseTable}>
-      <thead>
-      <tr className={styles.courseTableHeader} style={tabl eHeaderStyles}>
-          {columns.map((column, index) => (
-            <th key={index}>{column}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody className={styles.courseTableBody}>{children}</tbody>
-    </table>
+    <div id="tableWrapper" className={styles.wrapper}>
+      <table className={styles.courseTable}>
+        <thead>
+          <tr className={styles.courseTableHeader} style={tableHeaderStyles}>
+            {columns.map((column, index) => (
+              <th key={index}>{column}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className={styles.courseTableBody}>{children}</tbody>
+      </table>
+    </div>
   );
 }
