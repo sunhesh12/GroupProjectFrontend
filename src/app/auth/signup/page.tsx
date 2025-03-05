@@ -1,7 +1,7 @@
 import signup from "@/actions/signup";
 import styles from "./page.module.css";
 import InputField from "@/components/input/view";
-import Button from "@/components/button/view";
+import Button from "@/components/buttons/view";
 import { Work_Sans } from "next/font/google";
 
 const workSans = Work_Sans({

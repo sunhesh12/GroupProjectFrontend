@@ -1,6 +1,6 @@
 import ProfilePic from "@/components/profile-pic/view";
 import styles from "./page.module.css";
-import Button from "@/components/button/view";
+import Button from "@/components/buttons/view";
 import InputField from "@/components/input/view";
 
 export default function SettingsPage() {

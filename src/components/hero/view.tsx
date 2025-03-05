@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Button from "@/components/button/view";
+import Button from "@/components/buttons/view";
 import styles from "./style.module.css";
 import { Pangolin } from "next/font/google";
 

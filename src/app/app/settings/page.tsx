@@ -1,6 +1,6 @@
 import styles from "./page.module.css";
 import ProfilePic from "@/components/profile-pic/view";
-import Button from "@/components/button/view";
+import Button from "@/components/buttons/view";
 import Image from "next/image";
 
 export default function ProfilePage() {

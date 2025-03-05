@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./sigin.module.css";
-import Button from "@/components/button/view";
+import Button from "@/components/buttons/view";
 import InputField from "@/components/input/view";
 import signInAction from "@/actions/signin";
 
