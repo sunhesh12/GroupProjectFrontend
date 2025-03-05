@@ -1,7 +1,7 @@
 /* Table Container */
 .wrapper {
   width: 100%;
-  overflow-x: auto
+  overflow-x: auto;
 }
 
 .courseTable {
@@ -11,6 +11,7 @@
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(210, 210, 210, 0.1);
     overflow: hidden;
+    margin-top: 20px;
   }
   
   /* Table Header */

@@ -1,0 +1,9 @@
+.toolbarButton {
+    color:black;
+    background-color: transparent;
+    font-size: 15px;
+}
+
+.toolbarButton:hover {
+    background-color: #e3e3e3c4;
+}

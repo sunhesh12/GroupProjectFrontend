@@ -1,0 +1,7 @@
+.toolbar {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(241, 241, 241);
+    padding: 10px;
+    border-radius: 8px;
+}
