@@ -1,15 +1,10 @@
 import React from "react";
 import style from "./couseId.module.css";
 import Link from "next/link";
-import { FaYoutube, FaVimeo, FaPlay } from "react-icons/fa";
+
 
 const getVideoPlatformIcon = (url: string) => {
-  if (url.includes("youtube.com") || url.includes("youtu.be")) {
-    return <FaYoutube style={{ color: "gray", marginRight: "8px" }} />;
-  } else if (url.includes("vimeo.com")) {
-    return <FaVimeo style={{ color: "gray", marginRight: "8px" }} />;
-  }
-  return <FaPlay style={{ color: "gray", marginRight: "8px" }} />;
+ 
 };
 
 interface VideoContentProps {

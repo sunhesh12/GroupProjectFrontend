@@ -1,6 +1,7 @@
+"use client";
 import Link from "next/link";
 import styles from "./style.module.css";
-import { HTMLAttributes, ReactNode } from "react";
+import { MouseEventHandler, HTMLAttributes, ReactNode } from "react";
 import { Work_Sans } from "next/font/google";
 import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,6 +19,7 @@ type ButtonProps = {
   icon?: IconDefinition;
   fontSize?: string;
   type?: "submit" | "reset" | "button";
+  onClick?: MouseEventHandler<HTMLElement>;
 };
 
 export default function Button({
@@ -27,11 +29,13 @@ export default function Button({
   width,
   icon,
   fontSize,
+  onClick,
   type,
   className,
 }: ButtonProps) {
   // Any additional props
   const props: HTMLAttributes<HTMLElement> = {
+    onClick,
     "aria-label": "Button",
     role: "button",
     style: { fontSize: fontSize, width: width },

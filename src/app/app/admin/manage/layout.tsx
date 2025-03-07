@@ -5,6 +5,12 @@ import { user } from "@/utils/backend";
 import { Work_Sans } from "next/font/google";
 import type { ReactNode } from "react";
 import Tab from "@/components/tab/view";
+import {
+  faBook,
+  faGraduationCap,
+  faPersonChalkboard,
+  faSchool,
+} from "@fortawesome/free-solid-svg-icons";
 
 const workSansFont = Work_Sans({
   subsets: ["latin"],
@@ -43,10 +49,26 @@ export default async function ManageLayout({
         <Tab
           style={{ marginTop: "50px" }}
           tabs={[
-            { label: "Students", href: "/app/admin/manage/students" },
-            { label: "Modules", href: "/app/admin/manage/modules" },
-            { label: "Lecturers", href: "/app/admin/manage/lecturers" },
-            { label: "Courses", href: "/app/admin/manage/courses" },
+            {
+              label: "Students",
+              href: "/app/admin/manage/students",
+              icon: faGraduationCap,
+            },
+            {
+              label: "Modules",
+              href: "/app/admin/manage/modules",
+              icon: faBook,
+            },
+            {
+              label: "Lecturers",
+              href: "/app/admin/manage/lecturers",
+              icon: faPersonChalkboard,
+            },
+            {
+              label: "Courses",
+              href: "/app/admin/manage/courses",
+              icon: faSchool,
+            },
           ]}
         />
         {children}

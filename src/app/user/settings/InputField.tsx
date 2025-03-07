@@ -2,12 +2,12 @@ import React from "react";
 import styles from "./settings.module.css";
 
 interface InputFieldProps {
-  label: string;
+  label?: string;
   type: string;
   name: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  disabled: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
   placeholder?: string;
 }
 
@@ -25,7 +25,7 @@ const InputField: React.FC<InputFieldProps> = ({
     <input
       type={type}
       name={name}
-      value={value}
+      defaultValue={value}
       onChange={onChange}
       disabled={disabled}
       placeholder={placeholder}

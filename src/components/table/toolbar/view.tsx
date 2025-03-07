@@ -1,14 +1,33 @@
 "use client";
 import { faAdd, faRemove, faCheck } from "@fortawesome/free-solid-svg-icons";
 import styles from "./style.module.css";
-import ToolbarButton from "@/components/buttons/toolbar/view";
+import NobgButton from "@/components/buttons/nobg/view";
 
-export function TableToolbar() {
+interface TableToolbarProps {
+  title: string;
+  createAction: () => void;
+  updateAction: (id: number) => void;
+  deleteAction: (id: number) => void;
+}
+
+export function TableToolbar({
+  title,
+  createAction,
+  updateAction,
+  deleteAction,
+}: TableToolbarProps) {
   return (
-    <header id="table-toolbar" className={styles.toolbar}>
-      <ToolbarButton icon={faAdd}>Add</ToolbarButton>
-      <ToolbarButton icon={faCheck}>Select all</ToolbarButton>
-      <ToolbarButton icon={faRemove}>Remove</ToolbarButton>
+    <header id="tableToolbar" className={styles.toolbar}>
+      <h3>Student details</h3>
+      <div id="toolbar-buttons" className={styles.toolbarButtons}>
+        <NobgButton icon={faAdd} onClick={() => createAction()}>Add</NobgButton>
+        <NobgButton icon={faCheck} onClick={() => false}>
+          Select all
+        </NobgButton>
+        <NobgButton icon={faRemove} onClick={() => false}>
+          Remove
+        </NobgButton>
+      </div>
     </header>
   );
 }

@@ -1,7 +1,14 @@
 .toolbar {
     display: flex;
     flex-direction: row;
-    background-color: rgb(241, 241, 241);
+    align-items: center;
     padding: 10px;
     border-radius: 8px;
+}
+
+.toolbarButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
 }

@@ -1,15 +1,16 @@
 .tabButton {
-    padding: 10px;
-    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    padding: 10px 10px;
     text-decoration: none;
     color:black;
-    border: none;
     background-color: transparent;
     cursor: pointer;
 }
 
 .tabButton:hover {
-    background-color: #e3e3e348;
+    color: rgba(0, 0, 0, 0.766)
 }
 
 .tabButton {
