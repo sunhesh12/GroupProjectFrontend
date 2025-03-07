@@ -1,6 +1,5 @@
 import { user } from "@/utils/backend";
 import styles from "./page.module.css";
-import { Table, TableRow } from "@/components/table/view";
 import Manage from "./manage";
 
 export default async function ManageStudents() {

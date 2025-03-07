@@ -1,19 +1,13 @@
 "use client";
 import styles from "./style.module.css";
-import type { Fields } from "../view";
-import type { Row } from "../view";
+import type { TableRowType } from "../view";
 
-interface TableRowProps<T extends object> {
-  row: T;
-  id: number;
+interface TableRowProps {
+  tableRow: TableRowType;
   selectAction: (id: number) => void;
 }
 
-export function TableRow<T extends object>({
-  row,
-  selectAction,
-  id,
-}: TableRowProps<T>) {
+export function TableRow({ tableRow, selectAction }: TableRowProps) {
   return (
     <tr className={styles.courseTableRow}>
       <td>
@@ -23,28 +17,31 @@ export function TableRow<T extends object>({
           name="selected"
           onChange={(e) => {
             if (e.target.value === "1") {
-              selectAction(id);
+              selectAction(tableRow.state.id);
             }
           }}
+          checked={tableRow.state.selected}
         />
       </td>
-      {Object.keys(row).map((key, index) => (
-        <td key={index}>{String(row[key as keyof typeof row])}</td>
+      {Object.keys(tableRow.data).map((key, index) => (
+        <td key={index}>
+          {String(tableRow.data[key as keyof typeof tableRow.data].value)}
+        </td>
       ))}
     </tr>
   );
 }
 
 interface EditableTableRowProps {
-  id: number;
-  fields: Fields;
   selectAction: (id: number) => void;
+  tableRow: TableRowType;
+  updateAction: (id: number, payload: TableRowType["data"]) => void;
 }
 
 export function EditableTableRow({
-  fields,
   selectAction,
-  id,
+  updateAction,
+  tableRow,
 }: EditableTableRowProps) {
   return (
     <tr className={styles.courseTableRow}>
@@ -54,25 +51,33 @@ export function EditableTableRow({
           value="1"
           name="selected"
           onChange={(e) => {
-            if (e.target.checked) {
-              selectAction(id);
+            if (e.target.value === "1") {
+              selectAction(tableRow.state.id);
             }
           }}
+          checked={tableRow.state.selected}
         />
       </td>
-      {fields.map((field, index) =>
-        field.type !== "disabled" ? (
+      {Object.keys(tableRow.data).map((field, index) => {
+        const fieldProps = tableRow.data[field as keyof typeof tableRow];
+        return (
           <td key={index}>
-            <input
-              type={field.type}
-              name={field.name}
-              defaultValue={field.default}
-            />
+            {fieldProps.type !== "disabled" ? (
+              <input
+                type={fieldProps.type}
+                name={field}
+                defaultValue={fieldProps.value}
+                onChange={(e) => {
+                  tableRow.data[field].value = e.target.value;
+                  updateAction(tableRow.state.id, {...tableRow.data});
+                }}
+              />
+            ) : (
+              fieldProps.value
+            )}
           </td>
-        ) : (
-          <td key={index}>{field.default}</td>
-        )
-      )}
+        );
+      })}
     </tr>
   );
 }

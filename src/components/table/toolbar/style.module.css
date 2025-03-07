@@ -1,9 +1,19 @@
+.header {
+    display: flex;
+    flex-direction: column;
+}
+
 .toolbar {
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 10px;
     border-radius: 8px;
+}
+
+.action {
+    padding: 0;
+    margin: 0;
 }
 
 .toolbarButtons {

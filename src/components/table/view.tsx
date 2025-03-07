@@ -2,22 +2,34 @@
 import { useState } from "react";
 import styles from "./style.module.css";
 import { TableToolbar } from "./toolbar/view";
-import { TableRow, EditableTableRow } from "./table-row/view";
+import { EditableTableRow, TableRow } from "./table-row/view";
 
-export type Row<T> = {
-  state: { id: number; selected: boolean; editable: boolean };
-  data: T;
-};
+export interface TableRowType {
+  state: {
+    id: number;
+    selected: boolean;
+    editable: boolean;
+  };
+  data: Record<
+    string,
+    {
+      type: string;
+      value: string | number;
+    }
+  >;
+}
 
-interface TableProps<T extends object> {
+interface TableProps {
   title: string;
-  rows: Row<T>[];
-  config: TableConfig;
+  rows: TableRowType[];
+  columns: string[];
+  saveAction: () => void;
   createAction: () => void;
-  updateAction: (id: number) => void;
+  updateAction: (id: number, payload: TableRowType["data"]) => void;
   deleteAction: (id: number) => void;
   selectAction: (id: number) => void;
-  editAction: (id: number) => void;
+  clearAction: () => void;
+  editAction: () => void;
 }
 
 // Null is set to make a field uneditable
@@ -27,33 +39,34 @@ export type Fields = {
   default?: string;
 }[];
 
-interface TableConfig {
-  columns: Fields;
-}
-
 export interface RowState {
   id: number;
   selected: boolean;
   edited: boolean;
 }
 
-export function Table<T extends object>({
+export function Table({
   title,
   rows,
   createAction,
   deleteAction,
   updateAction,
   selectAction,
-  config,
-}: TableProps<T>) {
+  editAction,
+  clearAction,
+  saveAction,
+  columns
+}: TableProps) {
   // Tracking all the rows inside the table
   return (
     <div id="tableWrapper" className={styles.wrapper}>
       <TableToolbar
         title={title}
         createAction={createAction}
-        updateAction={updateAction}
         deleteAction={deleteAction}
+        editAction={editAction}
+        clearAction={clearAction}
+        saveAction={saveAction}
       />
       <table className={styles.courseTable}>
         {/* HEADER */}
@@ -62,8 +75,8 @@ export function Table<T extends object>({
             <th>
               <input type="checkbox" name="" id="" />
             </th>
-            {Object.keys(rows[0].data).map((key, index) => (
-              <th key={index}>{String(key)}</th>
+            {columns.map((column, index) => (
+              <th key={index}>{String(column)}</th>
             ))}
           </tr>
         </thead>
@@ -86,15 +99,14 @@ export function Table<T extends object>({
             row.state.editable === true ? (
               <EditableTableRow
                 key={index}
-                fields={config.columns}
-                id={row.state.id}
                 selectAction={selectAction}
+                tableRow={row}
+                updateAction={updateAction}
               />
             ) : (
               <TableRow
                 key={index}
-                row={row.data}
-                id={row.state.id}
+                tableRow={row}
                 selectAction={selectAction}
               />
             )
