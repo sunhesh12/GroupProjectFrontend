@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./page.module.css";
 import Link from "next/link";
-import CourseCart from "@/components/CourseCart/CourseCart";
+import CourseCart from "@/components/course-card/course-card";
 
 interface CourseListProps {
   filteredCourses: any[];

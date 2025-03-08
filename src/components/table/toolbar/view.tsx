@@ -18,7 +18,7 @@ interface TableToolbarProps {
   clearAction: () => void;
   deleteAction: (id: number) => void;
   editAction: () => void;
-  saveAction: () => void;
+  saveAction: () => Promise<any>;
 }
 
 export function TableToolbar({

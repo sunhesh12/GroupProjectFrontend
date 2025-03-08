@@ -13,8 +13,6 @@ interface PageProps {
   params: { id: string | undefined }; // Allow undefined to be handled properly
 }
 
-
-
 const CoursePage: React.FC<PageProps> = ({ params }) => {
   const [decodedId, setDecodedId] = useState<string | null>(null);
   const [openTopics, setOpenTopics] = useState<{ [key: string]: boolean }>({});

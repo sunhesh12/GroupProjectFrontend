@@ -23,7 +23,7 @@ interface TableProps {
   title: string;
   rows: TableRowType[];
   columns: string[];
-  saveAction: () => void;
+  saveAction: () => Promise<any>;
   createAction: () => void;
   updateAction: (id: number, payload: TableRowType["data"]) => void;
   deleteAction: (id: number) => void;

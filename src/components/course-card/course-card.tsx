@@ -1,9 +1,9 @@
 // components/CourseCart.tsx
 import React from "react";
 import Image from "next/image";
-import style from "./courseCart.module.css";  // Adjust the path to match your project structure
+import style from "./course-card.module.css";
 
-interface CourseCartProps {
+interface CourseCardProps {
   id: number;
   imageUrl: string;
   completion: number;
@@ -11,14 +11,20 @@ interface CourseCartProps {
   semester: string;
 }
 
-const CourseCart: React.FC<CourseCartProps> = ({ id, imageUrl, completion, name, semester}) => {
+export default function CourseCard({
+  id,
+  imageUrl,
+  completion,
+  name,
+  semester,
+}: CourseCardProps) {
   return (
-    <div key={id} className={style.courseCart}>
-      <div className={style.CartImage}>
+    <div key={id} className={style.courseCard}>
+      <div className={style.CardImage}>
         <Image
-          className={style.courseCartImage}
+          className={style.courseCardImage}
           src={imageUrl}
-          alt="cartImage"
+          alt="cardImage"
           width={100}
           height={100}
         />
@@ -35,5 +41,3 @@ const CourseCart: React.FC<CourseCartProps> = ({ id, imageUrl, completion, name,
     </div>
   );
 };
-
-export default CourseCart;

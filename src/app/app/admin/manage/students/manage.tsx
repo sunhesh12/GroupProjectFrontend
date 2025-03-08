@@ -4,6 +4,7 @@ import { useReducer } from "react";
 import type { User } from "@/utils/types/backend";
 import { Table } from "@/components/table/view";
 import type { TableRowType } from "@/components/table/view";
+import { updateUsers } from "@/actions/update-users";
 
 // TODO: Connect backend
 
@@ -140,6 +141,34 @@ export default function Manage({ users }: ManageProps) {
     users,
     prepare
   );
+
+  const handleSaveAction = async () => {
+    try {
+      // Prepare the data for the update (we're sending the updated rows)
+      const updatedUsers = state.map((row) => ({
+        id: row.data.id.value,
+        full_name: row.data.full_name.value,
+        age: row.data.age.value,
+        email: row.data.email.value,
+        address: row.data.address.value,
+        profile_picture: row.data.profile_picture.value,
+        password: row.data.password.value,
+        role: row.data.role.value,
+        status: row.data.status.value,
+        course_id: row.data.course_id.value,
+      }));
+
+      // Call the updateUsers function with the updated user data
+      await updateUsers(updatedUsers);
+
+      // Optionally show a success message or update the state if needed
+      console.log("Users updated successfully!");
+    } catch (error) {
+      console.error("Failed to update users:", error);
+      // Optionally show an error message
+    }
+  };
+
   return (
     <div id="usersManage">
       <Table
@@ -167,7 +196,9 @@ export default function Manage({ users }: ManageProps) {
         }
         clearAction={() => dispatch({ type: "clear" })}
         editAction={() => dispatch({ type: "edit" })}
-        saveAction={() => {console.log('SAVED !: ', state); dispatch({type: "clear"})}}
+        saveAction={async () => {
+          await updateUsers();
+        }}
       />
     </div>
   );

@@ -1,164 +1,72 @@
-/*
-	Contains all the backend related configurations and functions
-*/
-
 import type {
   APIResponse,
   User,
   Module,
   Course,
   UserWithToken,
-  ModuleWithCourses
+  ModuleWithCourses,
 } from "@/utils/types/backend";
 
 export const url = process.env.BACKEND_URL;
 
+const handleResponse = async <T>(request: Response): Promise<APIResponse<T>> => {
+  try {
+    return await request.json();
+  } catch (error) {
+    console.error("Error parsing response JSON:", error);
+    throw new Error("Invalid JSON response from server");
+  }
+};
+
+const fetchAPI = async <T>(endpoint: string, options: RequestInit = {}): Promise<APIResponse<T>> => {
+  try {
+    const request = await fetch(`${url}${endpoint}`, options);
+
+    if (!request.ok) {
+      console.error(`Error: ${request.status} - ${request.statusText}`);
+    }
+
+    return await handleResponse<T>(request);
+  } catch (error) {
+    console.error("Network error:", error);
+    throw new Error("Network error occurred");
+  }
+};
+
 const user = {
   auth: {
-    signup: async (formData: FormData) => {
-      const request = await fetch(`${url}/api/v1/users/auth/signup`, {
+    signup: (formData: FormData) =>
+      fetchAPI<UserWithToken>("/api/v1/users/auth/signup", {
         method: "POST",
         body: formData,
-      });
+      }),
 
-      if (request.status === 200) {
-        // Server succeed in creating user
-        try {
-          const result = (await request.json()) as APIResponse<UserWithToken>;
-          return result;
-        } catch (e) {
-          console.log("Error !", e);
-        }
-      } else if (request.status === 422) {
-        // Request has missing fields
-        const result = (await request.json()) as APIResponse<UserWithToken>;
-        return result;
-      } else if (request.status === 500) {
-        // Error occured in the database
-        const result = (await request.json()) as APIResponse<UserWithToken>;
-        return result;
-      } else {
-        // Any unknown error
-        const result = (await request.json()) as APIResponse<UserWithToken>;
-        return result;
-      }
-    },
-
-    signin: async ({
-      email,
-      password,
-    }: {
-      email: string;
-      password: string;
-    }) => {
-      const request = await fetch(`${url}/api/v1/users/auth/signin`, {
+    signin: ({ email, password }: { email: string; password: string }) =>
+      fetchAPI<UserWithToken>("/api/v1/users/auth/signin", {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-      });
+      }),
 
-      if (request.status === 200) {
-        const result = (await request.json()) as APIResponse<UserWithToken>;
-        return result;
-      } else if (request.status === 422) {
-        const result = (await request.json()) as APIResponse<UserWithToken>;
-        return result;
-      } else if (request.status === 500) {
-        const result = (await request.json()) as APIResponse<UserWithToken>;
-        return result;
-      } else {
-        const result = (await request.json()) as APIResponse<UserWithToken>;
-        return result;
-      }
+    signout: async () => {
+      return fetchAPI<null>("/api/v1/users/auth/signout", {
+        method: "POST",
+      });
     },
-    signout: async (formData: FormData) => {},
   },
-  get: async (id: string) => {
-    try {
-      const request = await fetch(`${url}/api/v1/users/${id}`);
-      if (request.status === 200) {
-        const result = (await request.json()) as APIResponse<User>;
-        return result;
-      } else if (request.status === 422) {
-        const result = (await request.json()) as APIResponse<User>;
-        return result;
-      } else if (request.status === 500) {
-        const result = (await request.json()) as APIResponse<User>;
-        return result;
-      } else {
-        const result = (await request.json()) as APIResponse<User>;
-        return result;
-      }
-    } catch (error) {
-      console.log("Error while fetching data: ", error);
-    }
-  },
-  getAll: async () => {
-    try {
-      const request = await fetch(`${url}/api/v1/users/`);
-      if (request.status === 200) {
-        const result = (await request.json()) as APIResponse<User[]>;
-        return result;
-      } else if (request.status === 422) {
-        const result = (await request.json()) as APIResponse<User[]>;
-        return result;
-      } else if (request.status === 500) {
-        const result = (await request.json()) as APIResponse<User[]>;
-        return result;
-      } else {
-        const result = (await request.json()) as APIResponse<User[]>;
-        return result;
-      }
-    } catch (error) {
-      console.log("Error while fetching data: ", error);
-    }
-  },
-  getStudents: async () => {
-    try {
-      const request = await fetch(`${url}/api/v1/users/students`);
-      if (request.status === 200) {
-        const result = (await request.json()) as APIResponse<User[]>;
-        return result;
-      } else if (request.status === 422) {
-        const result = (await request.json()) as APIResponse<User[]>;
-        return result;
-      } else if (request.status === 500) {
-        const result = (await request.json()) as APIResponse<User[]>;
-        return result;
-      } else {
-        const result = (await request.json()) as APIResponse<User[]>;
-        return result;
-      }
-    } catch (error) {
-      console.log("Error while fetching data: ", error);
-    }
-  }
+
+  get: (id: string) => fetchAPI<User>(`/api/v1/users/${id}`),
+
+  getAll: () => fetchAPI<User[]>("/api/v1/users/"),
+
+  getStudents: () => fetchAPI<User[]>("/api/v1/users/students"),
 };
 
 const modules = {
-  getAll: async () => {
-    try {
-      const request = await fetch(`${url}/api/v1/modules`);
-      if (request.status === 200) {
-        const result = (await request.json()) as APIResponse<ModuleWithCourses[]>;
-        return result;
-      } else if (request.status === 422) {
-        const result = (await request.json()) as APIResponse<ModuleWithCourses[]>;
-        return result;
-      } else if (request.status === 500) {
-        const result = (await request.json()) as APIResponse<ModuleWithCourses[]>;
-        return result;
-      } else {
-        const result = (await request.json()) as APIResponse<ModuleWithCourses[]>;
-        return result;
-      }
-    } catch (error) {
-      console.log("Error while fetching data: ", error);
-    }
-  },
+  getAll: () => fetchAPI<ModuleWithCourses[]>("/api/v1/modules"),
 };
 
 Object.freeze(modules);
