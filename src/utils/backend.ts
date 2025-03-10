@@ -7,7 +7,7 @@ import type {
   ModuleWithCourses,
 } from "@/utils/types/backend";
 
-export const url = process.env.BACKEND_URL;
+export const url = 'http://127.0.0.1:8000';
 
 const handleResponse = async <T>(request: Response): Promise<APIResponse<T>> => {
   try {
@@ -18,28 +18,57 @@ const handleResponse = async <T>(request: Response): Promise<APIResponse<T>> => 
   }
 };
 
+// const fetchAPI = async <T>(endpoint: string, options: RequestInit = {}): Promise<APIResponse<T>> => {
+//   try {
+//     const request = await fetch(`${url}${endpoint}`, options);
+
+//     if (!request.ok) {
+//       console.error(`Error: ${request.status} - ${request.statusText}`);
+//     }
+
+//     return await handleResponse<T>(request);
+//   } catch (error) {
+//     console.error("Network error:", error);
+//     throw new Error("Network error occurred");
+//   }
+// };
+
 const fetchAPI = async <T>(endpoint: string, options: RequestInit = {}): Promise<APIResponse<T>> => {
   try {
     const request = await fetch(`${url}${endpoint}`, options);
 
-    if (!request.ok) {
-      console.error(`Error: ${request.status} - ${request.statusText}`);
+    // Handle different status codes
+    if (request.status === 200) {
+      // Server succeeded in processing the request
+      const result = (await request.json()) as APIResponse<T>;
+      return result;
+    } else if (request.status === 422) {
+      // Request has missing or invalid fields
+      const result = (await request.json()) as APIResponse<T>;
+      return result;
+    } else if (request.status === 500) {
+      // Error occurred in the database or server
+      const result = (await request.json()) as APIResponse<T>;
+      return result;
+    } else {
+      // Any other unknown error
+      const errorResponse = await request.text(); // Get error message
+      throw new Error(`Error ${request.status}: ${errorResponse}`);
     }
-
-    return await handleResponse<T>(request);
   } catch (error) {
     console.error("Network error:", error);
     throw new Error("Network error occurred");
   }
 };
 
+
 const user = {
   auth: {
     signup: (formData: FormData) =>
       fetchAPI<UserWithToken>("/api/v1/users/auth/signup", {
         method: "POST",
-        body: formData,
-      }),
+        body: formData,  
+      }),        
 
     signin: ({ email, password }: { email: string; password: string }) =>
       fetchAPI<UserWithToken>("/api/v1/users/auth/signin", {
@@ -47,7 +76,7 @@ const user = {
         body: JSON.stringify({ email, password }),
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
+          "Accept": "application/json",
         },
       }),
 
