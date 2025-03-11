@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import styles from "./style.module.css";
 import { TableToolbar } from "./toolbar/view";
 import { EditableTableRow, TableRow } from "./table-row/view";
@@ -19,10 +18,16 @@ export interface TableRowType {
   >;
 }
 
+export interface TableColumnType {
+    name: string;
+    type: "number" | "email" | "text" | "tel" | "disabled" | "password";
+    inputName?: string;
+}
+
 interface TableProps {
   title: string;
   rows: TableRowType[];
-  columns: string[];
+  columns: TableColumnType[];
   saveAction: () => Promise<any>;
   createAction: () => void;
   updateAction: (id: number, payload: TableRowType["data"]) => void;
@@ -55,7 +60,7 @@ export function Table({
   editAction,
   clearAction,
   saveAction,
-  columns
+  columns,
 }: TableProps) {
   // Tracking all the rows inside the table
   return (
@@ -75,9 +80,9 @@ export function Table({
             <th>
               <input type="checkbox" name="" id="" />
             </th>
-            {columns.map((column, index) => (
-              <th key={index}>{String(column)}</th>
-            ))}
+            {columns.map(({name}, index) => {
+              return <th key={index}>{name}</th>;
+            })}
           </tr>
         </thead>
         {/* BODY */}
@@ -101,6 +106,7 @@ export function Table({
                 key={index}
                 selectAction={selectAction}
                 tableRow={row}
+                tableColumn={columns}
                 updateAction={updateAction}
               />
             ) : (

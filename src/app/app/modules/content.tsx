@@ -7,8 +7,10 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { courses1 } from "@/utils/studentcourse";
 import EnrollmentModal from "./enrollment-modal";
+import type { ModuleWithCourses } from "@/utils/types/backend";
 
-export default function Content() {
+
+export default function Content({modules}: {modules: ModuleWithCourses[]}) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedSemester, setSelectedSemester] = useState<string>("");
@@ -18,12 +20,12 @@ export default function Content() {
   const [error, setError] = useState<string>("");
 
   // Filter courses based on search query and selected semester
-  const filteredCourses = courses1.filter((course) => {
-    const matchesSearchQuery = course.name
+  const filteredCourses = modules.filter((module) => {
+    const matchesSearchQuery = module.module_name
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
     const matchesSemester = selectedSemester
-      ? course.semester === selectedSemester
+      ? module.module_name === selectedSemester
       : true;
     return matchesSearchQuery && matchesSemester;
   });

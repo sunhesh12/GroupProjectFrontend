@@ -142,51 +142,22 @@ export default function Manage({ users }: ManageProps) {
     prepare
   );
 
-  const handleSaveAction = async () => {
-    try {
-      // Prepare the data for the update (we're sending the updated rows)
-      const updatedUsers = state.map((row) => ({
-        id: row.data.id.value,
-        full_name: row.data.full_name.value,
-        age: row.data.age.value,
-        email: row.data.email.value,
-        address: row.data.address.value,
-        profile_picture: row.data.profile_picture.value,
-        password: row.data.password.value,
-        role: row.data.role.value,
-        status: row.data.status.value,
-        course_id: row.data.course_id.value,
-      }));
-
-      // Call the updateUsers function with the updated user data
-      await updateUsers(updatedUsers);
-
-      // Optionally show a success message or update the state if needed
-      console.log("Users updated successfully!");
-    } catch (error) {
-      console.error("Failed to update users:", error);
-      // Optionally show an error message
-    }
-  };
-
   return (
     <div id="usersManage">
       <Table
         rows={state}
         title="Hello table"
         columns={[
-          "ID",
-          "Full Name",
-          "Age",
-          "Email",
-          "Address",
-          "Profile Picture",
-          "Password",
-          "Role",
-          "Status",
-          "Course ID",
-          "Created At",
-          "Updated At",
+          {name: "Id", type: "text", inputName: "id"},
+          {name: "Full name", type: "text", inputName: "full_name"},
+          {name: "Age", type: "number",inputName: "age"},
+          {name: "Address", type: "text", inputName: "address"},
+          {name: "Profile picture", type: "text", inputName: "profile_picture"},
+          {name: "Password", type: "password", inputName: "password"},
+          {name: "Status", type: "text", inputName: "status"},
+          {name: "Course id", type: "text", inputName: "course_id"},
+          {name: "Created at", type: "disabled", inputName: "created_at"},
+          {name: "Updated at", type: "disabled", inputName: "updated_at"},
         ]}
         createAction={() => dispatch({ type: "create" })}
         selectAction={(id: number) => dispatch({ type: "select", id })}
@@ -197,7 +168,7 @@ export default function Manage({ users }: ManageProps) {
         clearAction={() => dispatch({ type: "clear" })}
         editAction={() => dispatch({ type: "edit" })}
         saveAction={async () => {
-          await updateUsers();
+          
         }}
       />
     </div>

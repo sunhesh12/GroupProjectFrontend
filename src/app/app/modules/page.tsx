@@ -14,7 +14,7 @@ export default async function Page() {
     throw new Error("User couldn't found");
   }
 
-  const allModules = await modules.getAll();
+  const allModules = (await modules.getAll()).payload;
 
   if(!allModules) {
     return (
@@ -24,7 +24,7 @@ export default async function Page() {
 
   return (
     <div>
-      <Content  />
+      <Content modules={allModules} /> 
     </div>
   );
 }

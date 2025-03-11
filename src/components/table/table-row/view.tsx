@@ -1,6 +1,6 @@
 "use client";
 import styles from "./style.module.css";
-import type { TableRowType } from "../view";
+import type { TableColumnType, TableRowType } from "../view";
 
 interface TableRowProps {
   tableRow: TableRowType;
@@ -35,6 +35,7 @@ export function TableRow({ tableRow, selectAction }: TableRowProps) {
 interface EditableTableRowProps {
   selectAction: (id: number) => void;
   tableRow: TableRowType;
+  tableColumns: TableColumnType[];
   updateAction: (id: number, payload: TableRowType["data"]) => void;
 }
 
@@ -42,6 +43,7 @@ export function EditableTableRow({
   selectAction,
   updateAction,
   tableRow,
+  tableColumns,
 }: EditableTableRowProps) {
   return (
     <tr className={styles.courseTableRow}>
@@ -58,15 +60,14 @@ export function EditableTableRow({
           checked={tableRow.state.selected}
         />
       </td>
-      {Object.keys(tableRow.data).map((field, index) => {
-        const fieldProps = tableRow.data[field as keyof typeof tableRow];
+      {tableColumns.map((column, index) => {
         return (
           <td key={index}>
-            {fieldProps.type !== "disabled" ? (
+            {column.type !== "disabled" ? (
               <input
-                type={fieldProps.type}
-                name={field}
-                defaultValue={fieldProps.value}
+                type={column.type}
+                name={column.name}
+                defaultValue={tableRow.data[""]}
                 onChange={(e) => {
                   tableRow.data[field].value = e.target.value;
                   updateAction(tableRow.state.id, {...tableRow.data});
