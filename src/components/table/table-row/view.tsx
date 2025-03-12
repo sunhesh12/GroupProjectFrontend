@@ -8,7 +8,11 @@ interface TableRowProps<T> {
   selectAction: (id: number) => void;
 }
 
-export function TableRow<T>({ tableRow, tableColumns ,selectAction }: TableRowProps<T>) {
+export function TableRow<T>({
+  tableRow,
+  tableColumns,
+  selectAction,
+}: TableRowProps<T>) {
   return (
     <tr className={styles.courseTableRow}>
       <td>
@@ -25,9 +29,7 @@ export function TableRow<T>({ tableRow, tableColumns ,selectAction }: TableRowPr
         />
       </td>
       {tableColumns.map((column, index) => (
-        <td key={index}>
-          {String(tableRow.data[column.inputName])}
-        </td>
+        <td key={index}>{String(tableRow.data[column.inputName])}</td>
       ))}
     </tr>
   );
@@ -67,15 +69,17 @@ export function EditableTableRow<T>({
             {column.type !== "disabled" ? (
               <input
                 type={column.type}
-                name={column.name}
-                defaultValue={tableRow.data[column.inputName]}
+                name={`${tableRow.state.id}-${column.name}`}
+                defaultValue={tableRow.data[column.inputName] as string}
                 onChange={(e) => {
-                  tableRow.data[field].value = e.target.value;
-                  updateAction(tableRow.state.id, {...tableRow.data});
+                  updateAction(tableRow.state.id, {
+                    ...tableRow.data,
+                    [column.inputName]: e.target.value,
+                  });
                 }}
               />
             ) : (
-              fieldProps.value
+              (tableRow.data[column.inputName] as string)
             )}
           </td>
         );

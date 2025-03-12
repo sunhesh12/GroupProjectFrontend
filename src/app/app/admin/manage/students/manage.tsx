@@ -43,7 +43,7 @@ function reducer(
       return [
         {
           state: {
-            id: state.length ? state[state.length - 1].state.id + 1 : 0,
+            id: state.length + 1,
             selected: false,
             editable: true,
           },
@@ -114,7 +114,7 @@ export default function Manage({ users }: ManageProps) {
     users,
     prepare
   );
-
+  console.log(state);
   return (
     <div id="usersManage">
       <Table
