@@ -2,12 +2,13 @@
 import styles from "./style.module.css";
 import type { TableColumnType, TableRowType } from "../view";
 
-interface TableRowProps {
-  tableRow: TableRowType;
+interface TableRowProps<T> {
+  tableColumns: TableColumnType<T>[];
+  tableRow: TableRowType<T>;
   selectAction: (id: number) => void;
 }
 
-export function TableRow({ tableRow, selectAction }: TableRowProps) {
+export function TableRow<T>({ tableRow, tableColumns ,selectAction }: TableRowProps<T>) {
   return (
     <tr className={styles.courseTableRow}>
       <td>
@@ -23,28 +24,28 @@ export function TableRow({ tableRow, selectAction }: TableRowProps) {
           checked={tableRow.state.selected}
         />
       </td>
-      {Object.keys(tableRow.data).map((key, index) => (
+      {tableColumns.map((column, index) => (
         <td key={index}>
-          {String(tableRow.data[key as keyof typeof tableRow.data].value)}
+          {String(tableRow.data[column.inputName])}
         </td>
       ))}
     </tr>
   );
 }
 
-interface EditableTableRowProps {
+interface EditableTableRowProps<T> {
   selectAction: (id: number) => void;
-  tableRow: TableRowType;
-  tableColumns: TableColumnType[];
-  updateAction: (id: number, payload: TableRowType["data"]) => void;
+  tableRow: TableRowType<T>;
+  tableColumns: TableColumnType<T>[];
+  updateAction: (id: number, payload: T) => void;
 }
 
-export function EditableTableRow({
+export function EditableTableRow<T>({
   selectAction,
   updateAction,
   tableRow,
   tableColumns,
-}: EditableTableRowProps) {
+}: EditableTableRowProps<T>) {
   return (
     <tr className={styles.courseTableRow}>
       <td>
@@ -67,7 +68,7 @@ export function EditableTableRow({
               <input
                 type={column.type}
                 name={column.name}
-                defaultValue={tableRow.data[""]}
+                defaultValue={tableRow.data[column.inputName]}
                 onChange={(e) => {
                   tableRow.data[field].value = e.target.value;
                   updateAction(tableRow.state.id, {...tableRow.data});

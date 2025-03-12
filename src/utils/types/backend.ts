@@ -8,16 +8,16 @@ export type APIResponse<PayloadType> = {
 };
 
 export interface User {
-  Full_name: string;
-  Age: string;
-  Email: string;
-  Mobile_No: string;
-  Address: string;
-  Profile_Picture: string;
-  Password: string;
-  Role: string;
-  Status: string;
-  Course_Id: string;
+  full_name: string;
+  age: string;
+  email: string;
+  mobile_no: string;
+  address: string;
+  profile_picture: string;
+  password: string;
+  role: string;
+  status: string;
+  course_id: string;
   updated_at: string;
   created_at: string;
   id: string;

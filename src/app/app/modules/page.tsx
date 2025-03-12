@@ -13,7 +13,7 @@ export default async function Page() {
   if(!user) {
     throw new Error("User couldn't found");
   }
-
+ 
   const allModules = (await modules.getAll()).payload;
 
   if(!allModules) {

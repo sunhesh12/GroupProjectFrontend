@@ -37,7 +37,7 @@ export default async function ManageLayout({
   }
 
   // Only for authorized admins
-  if (currentUser.Role !== "admin") {
+  if (currentUser.role !== "admin") {
     redirect("/app/dashboard");
   }
 

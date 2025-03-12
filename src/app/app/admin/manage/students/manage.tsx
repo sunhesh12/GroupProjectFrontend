@@ -15,54 +15,29 @@ interface ManageProps {
 interface Action {
   type: "create" | "update" | "delete" | "select" | "edit" | "clear";
   id?: number;
-  payload?: Partial<Record<string, { value: string | number }>>;
+  payload?: User;
 }
 
-type Reducer = (state: TableRowType[], action: Action) => TableRowType[];
+type Reducer = (
+  state: TableRowType<User>[],
+  action: Action
+) => TableRowType<User>[];
 
-function prepare(users: User[]): TableRowType[] {
-  return users.map(
-    (
-      {
-        id,
-        Full_name,
-        Age,
-        Email,
-        Address,
-        Profile_Picture,
-        Password,
-        Role,
-        Status,
-        Course_Id,
-        updated_at,
-        created_at,
-      },
-      index
-    ) => ({
-      state: {
-        id: index,
-        selected: false,
-        editable: false,
-      },
-      data: {
-        id: { type: "number", value: id },
-        full_name: { type: "text", value: Full_name },
-        age: { type: "number", value: Age },
-        email: { type: "email", value: Email },
-        address: { type: "text", value: Address },
-        profile_picture: { type: "text", value: Profile_Picture },
-        password: { type: "password", value: Password },
-        role: { type: "text", value: Role },
-        status: { type: "number", value: Status },
-        course_id: { type: "text", value: Course_Id },
-        created_at: { type: "disabled", value: created_at },
-        updated_at: { type: "disabled", value: updated_at },
-      },
-    })
-  );
+function prepare(users: User[]): TableRowType<User>[] {
+  return users.map((user, index) => ({
+    state: {
+      id: index,
+      selected: false,
+      editable: false,
+    },
+    data: user,
+  }));
 }
 
-function reducer(state: TableRowType[], action: Action): TableRowType[] {
+function reducer(
+  state: TableRowType<User>[],
+  action: Action
+): TableRowType<User>[] {
   switch (action.type) {
     case "create":
       return [
@@ -73,22 +48,24 @@ function reducer(state: TableRowType[], action: Action): TableRowType[] {
             editable: true,
           },
           data: {
-            id: { type: "number", value: "" },
-            full_name: { type: "text", value: "" },
-            age: { type: "number", value: "" },
-            email: { type: "email", value: "" },
-            address: { type: "text", value: "" },
-            profile_picture: { type: "text", value: "" },
-            password: { type: "password", value: "" },
-            role: { type: "text", value: "" },
-            status: { type: "number", value: "" },
-            course_id: { type: "text", value: "" },
-            created_at: { type: "disabled", value: "" },
-            updated_at: { type: "disabled", value: "" },
+            id: "", // Assuming default ID as 0 (adjust based on backend logic)
+            full_name: "",
+            age: "",
+            email: "",
+            address: "",
+            profile_picture: "",
+            mobile_no: "",
+            password: "",
+            role: "",
+            status: "",
+            course_id: "",
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
           },
         },
         ...state,
       ];
+
     case "update":
       return state.map((row) =>
         row.state.id === action.id
@@ -96,44 +73,40 @@ function reducer(state: TableRowType[], action: Action): TableRowType[] {
               ...row,
               data: {
                 ...row.data,
-                ...Object.keys(action.payload || {}).reduce(
-                  (acc, key) => ({
-                    ...acc,
-                    [key]: {
-                      ...row.data[key],
-                      value:
-                        action.payload?.[key]?.value ?? row.data[key].value,
-                    },
-                  }),
-                  {}
-                ),
+                ...(action.payload as Partial<User>), // Directly update user properties
               },
             }
           : row
       );
+
     case "delete":
       return state.filter((row) => row.state.id !== action.id);
+
     case "select":
       return state.map((row) =>
         row.state.id === action.id
           ? { ...row, state: { ...row.state, selected: !row.state.selected } }
           : row
       );
+
     case "edit":
       return state.map((row) =>
         row.state.selected
           ? { ...row, state: { ...row.state, editable: true } }
           : row
       );
+
     case "clear":
       return state.map((row) => ({
         ...row,
         state: { ...row.state, editable: false, selected: false },
       }));
+
     default:
       throw new Error("Invalid action type");
   }
 }
+
 
 export default function Manage({ users }: ManageProps) {
   const [state, dispatch] = useReducer<Reducer, User[]>(
@@ -148,28 +121,30 @@ export default function Manage({ users }: ManageProps) {
         rows={state}
         title="Hello table"
         columns={[
-          {name: "Id", type: "text", inputName: "id"},
-          {name: "Full name", type: "text", inputName: "full_name"},
-          {name: "Age", type: "number",inputName: "age"},
-          {name: "Address", type: "text", inputName: "address"},
-          {name: "Profile picture", type: "text", inputName: "profile_picture"},
-          {name: "Password", type: "password", inputName: "password"},
-          {name: "Status", type: "text", inputName: "status"},
-          {name: "Course id", type: "text", inputName: "course_id"},
-          {name: "Created at", type: "disabled", inputName: "created_at"},
-          {name: "Updated at", type: "disabled", inputName: "updated_at"},
+          { name: "Id", type: "text", inputName: "id" },
+          { name: "Full name", type: "text", inputName: "full_name" },
+          { name: "Age", type: "number", inputName: "age" },
+          { name: "Address", type: "text", inputName: "address" },
+          {
+            name: "Profile picture",
+            type: "text",
+            inputName: "profile_picture",
+          },
+          { name: "Password", type: "password", inputName: "password" },
+          { name: "Status", type: "text", inputName: "status" },
+          { name: "Course id", type: "text", inputName: "course_id" },
+          { name: "Created at", type: "disabled", inputName: "created_at" },
+          { name: "Updated at", type: "disabled", inputName: "updated_at" },
         ]}
         createAction={() => dispatch({ type: "create" })}
         selectAction={(id: number) => dispatch({ type: "select", id })}
         deleteAction={(id: number) => dispatch({ type: "delete", id })}
-        updateAction={(id: number, payload: TableRowType["data"]) =>
+        updateAction={(id: number, payload: User) =>
           dispatch({ type: "update", id, payload })
         }
         clearAction={() => dispatch({ type: "clear" })}
         editAction={() => dispatch({ type: "edit" })}
-        saveAction={async () => {
-          
-        }}
+        saveAction={async () => {}}
       />
     </div>
   );

@@ -3,34 +3,28 @@ import styles from "./style.module.css";
 import { TableToolbar } from "./toolbar/view";
 import { EditableTableRow, TableRow } from "./table-row/view";
 
-export interface TableRowType {
+export interface TableRowType<T> {
   state: {
     id: number;
     selected: boolean;
     editable: boolean;
   };
-  data: Record<
-    string,
-    {
-      type: string;
-      value: string | number;
-    }
-  >;
+  data: T;
 }
 
-export interface TableColumnType {
+export interface TableColumnType<T> {
     name: string;
     type: "number" | "email" | "text" | "tel" | "disabled" | "password";
-    inputName?: string;
+    inputName: keyof T;
 }
 
-interface TableProps {
+interface TableProps<T> {
   title: string;
-  rows: TableRowType[];
-  columns: TableColumnType[];
+  rows: TableRowType<T>[];
+  columns: TableColumnType<T>[];
   saveAction: () => Promise<any>;
   createAction: () => void;
-  updateAction: (id: number, payload: TableRowType["data"]) => void;
+  updateAction: (id: number, payload: T) => void;
   deleteAction: (id: number) => void;
   selectAction: (id: number) => void;
   clearAction: () => void;
@@ -50,7 +44,7 @@ export interface RowState {
   edited: boolean;
 }
 
-export function Table({
+export function Table<T>({
   title,
   rows,
   createAction,
@@ -61,7 +55,7 @@ export function Table({
   clearAction,
   saveAction,
   columns,
-}: TableProps) {
+}: TableProps<T>) {
   // Tracking all the rows inside the table
   return (
     <div id="tableWrapper" className={styles.wrapper}>
@@ -106,13 +100,14 @@ export function Table({
                 key={index}
                 selectAction={selectAction}
                 tableRow={row}
-                tableColumn={columns}
+                tableColumns={columns}
                 updateAction={updateAction}
               />
             ) : (
               <TableRow
                 key={index}
                 tableRow={row}
+                tableColumns={columns}
                 selectAction={selectAction}
               />
             )
