@@ -5,6 +5,7 @@ import type { User } from "@/utils/types/backend";
 import { Table } from "@/components/table/view";
 import type { TableRowType } from "@/components/table/view";
 import { updateUsers } from "@/actions/update-users";
+import { useAppControls } from "@/hooks/use-app-controls";
 
 // TODO: Connect backend
 
@@ -31,6 +32,21 @@ function prepare(users: User[]): TableRowType<User>[] {
       editable: false,
     },
     data: user,
+  }));
+}
+
+function dbPrepare(state: TableRowType<User>[]) {
+  return state.map((tableRow) => ({
+    full_name: tableRow.data.full_name,
+    age: tableRow.data.age,
+    email: tableRow.data.email,
+    address: tableRow.data.address,
+    profile_picture: tableRow.data.profile_picture,
+    mobile_no: tableRow.data.mobile_no,
+    password: tableRow.data.password,
+    role: tableRow.data.role,
+    status: tableRow.data.status,
+    course_id: tableRow.data.course_id,
   }));
 }
 
@@ -107,16 +123,24 @@ function reducer(
   }
 }
 
-
 export default function Manage({ users }: ManageProps) {
+  const {openMessageBox} = useAppControls();
+  // Has expensive computation
   const [state, dispatch] = useReducer<Reducer, User[]>(
     reducer,
     users,
     prepare
   );
-  console.log(state);
-  return (
+  // Don't add any executions
+  return ( 
     <div id="usersManage">
+      <button onClick={() => {
+        openMessageBox(
+          <div>
+            dasdasdsa
+          </div>
+        )
+      }}>Show message</button>
       <Table
         rows={state}
         title="Hello table"
@@ -136,15 +160,13 @@ export default function Manage({ users }: ManageProps) {
           { name: "Created at", type: "disabled", inputName: "created_at" },
           { name: "Updated at", type: "disabled", inputName: "updated_at" },
         ]}
-        createAction={() => dispatch({ type: "create" })}
-        selectAction={(id: number) => dispatch({ type: "select", id })}
-        deleteAction={(id: number) => dispatch({ type: "delete", id })}
-        updateAction={(id: number, payload: User) =>
-          dispatch({ type: "update", id, payload })
-        }
-        clearAction={() => dispatch({ type: "clear" })}
-        editAction={() => dispatch({ type: "edit" })}
-        saveAction={async () => {}}
+        rowAction={() => {
+          openMessageBox(
+            <div>
+              From Row action
+            </div>
+          )
+        }}
       />
     </div>
   );

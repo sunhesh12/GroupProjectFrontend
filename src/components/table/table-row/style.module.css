@@ -16,3 +16,14 @@
 .courseTableRow:hover td {
   background-color: #f1f1f1;
 }
+
+.selectButton {
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border:none;
+}
+
+.selectButton {
+  cursor: pointer;
+}

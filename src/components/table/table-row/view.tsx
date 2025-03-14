@@ -1,89 +1,38 @@
 "use client";
 import styles from "./style.module.css";
 import type { TableColumnType, TableRowType } from "../view";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 interface TableRowProps<T> {
   tableColumns: TableColumnType<T>[];
   tableRow: TableRowType<T>;
-  selectAction: (id: number) => void;
+  rowAction: (row: TableRowType<T>) => void;
 }
 
 export function TableRow<T>({
   tableRow,
   tableColumns,
-  selectAction,
+  rowAction,
 }: TableRowProps<T>) {
+  const [isVisible, setIsVisible] = useState(false);
   return (
-    <tr className={styles.courseTableRow}>
+    <tr
+      className={styles.courseTableRow}
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+    >
       <td>
-        <input
-          type="checkbox"
-          value="1"
-          name="selected"
-          onChange={(e) => {
-            if (e.target.value === "1") {
-              selectAction(tableRow.state.id);
-            }
-          }}
-          checked={tableRow.state.selected}
-        />
+        {isVisible && (
+          <button className={styles.selectButton} onClick={() => rowAction(tableRow)}>
+            <FontAwesomeIcon icon={faPenToSquare} size="lg" />
+          </button>
+        )}
       </td>
       {tableColumns.map((column, index) => (
         <td key={index}>{String(tableRow.data[column.inputName])}</td>
       ))}
-    </tr>
-  );
-}
-
-interface EditableTableRowProps<T> {
-  selectAction: (id: number) => void;
-  tableRow: TableRowType<T>;
-  tableColumns: TableColumnType<T>[];
-  updateAction: (id: number, payload: T) => void;
-}
-
-export function EditableTableRow<T>({
-  selectAction,
-  updateAction,
-  tableRow,
-  tableColumns,
-}: EditableTableRowProps<T>) {
-  return (
-    <tr className={styles.courseTableRow}>
-      <td>
-        <input
-          type="checkbox"
-          value="1"
-          name="selected"
-          onChange={(e) => {
-            if (e.target.value === "1") {
-              selectAction(tableRow.state.id);
-            }
-          }}
-          checked={tableRow.state.selected}
-        />
-      </td>
-      {tableColumns.map((column, index) => {
-        return (
-          <td key={index}>
-            {column.type !== "disabled" ? (
-              <input
-                type={column.type}
-                name={`${tableRow.state.id}-${column.name}`}
-                defaultValue={tableRow.data[column.inputName] as string}
-                onChange={(e) => {
-                  updateAction(tableRow.state.id, {
-                    ...tableRow.data,
-                    [column.inputName]: e.target.value,
-                  });
-                }}
-              />
-            ) : (
-              (tableRow.data[column.inputName] as string)
-            )}
-          </td>
-        );
-      })}
     </tr>
   );
 }

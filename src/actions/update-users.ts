@@ -1,7 +1,7 @@
 "use server";
 
-import { User } from "@/utils/types/backend";
+import { UserRequest } from "@/utils/types/backend";
 
-export async function updateUsers(users: User[]) {
+export async function updateUsers(users: UserRequest[]) {
     
 }

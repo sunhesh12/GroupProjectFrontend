@@ -23,6 +23,8 @@ export interface User {
   id: string;
 }
 
+export type UserRequest = Omit<User, "created_at" | "updated_at" | "id">;
+
 export interface Module {
   id: string;
   module_name: string;
@@ -46,7 +48,7 @@ export interface Course {
   pivot: {
     module_id: string;
     course_id: string;
-  }
+  };
 }
 
 export interface CourseWithPivot extends Course {

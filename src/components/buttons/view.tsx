@@ -10,7 +10,7 @@ const workSans = Work_Sans({
   subsets: ["latin"],
 });
 
-type ButtonProps = {
+export type ButtonProps = {
   children?: ReactNode;
   isLink?: boolean;
   className?: string;
