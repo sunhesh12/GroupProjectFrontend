@@ -56,6 +56,9 @@ const user = {
         method: "POST",
       });
     },
+
+    user: async () => {
+    }
   },
 
   get: (id: string) => fetchAPI<User>(`/api/v1/users/${id}`),

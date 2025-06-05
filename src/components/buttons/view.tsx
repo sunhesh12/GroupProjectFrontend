@@ -5,6 +5,7 @@ import { MouseEventHandler, HTMLAttributes, ReactNode } from "react";
 import { Work_Sans } from "next/font/google";
 import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Spinner from "../spinner/view";
 
 const workSans = Work_Sans({
   subsets: ["latin"],
@@ -16,6 +17,7 @@ export type ButtonProps = {
   className?: string;
   href?: string;
   width?: string;
+  loading?: boolean;
   icon?: IconDefinition;
   fontSize?: string;
   type?: "submit" | "reset" | "button";
@@ -28,6 +30,7 @@ export default function Button({
   href,
   width,
   icon,
+  loading,
   fontSize,
   onClick,
   type,
@@ -47,7 +50,7 @@ export default function Button({
   if (!isLink) {
     return (
       <button type={type} {...props}>
-        {icon && <FontAwesomeIcon width={20} height={20} icon={icon} />}
+        {loading ? <Spinner /> : icon && <FontAwesomeIcon width={20} height={20} icon={icon} />}
         {children}
       </button>
     );
