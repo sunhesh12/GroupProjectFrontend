@@ -32,14 +32,17 @@ export default function SignIn() {
         <header className={styles.formHeader}>
           <Image src={LoginIcon} alt="LMS Logo" width={80} height={80} />
           <h1>Sign in</h1>
+          {state.status === "success" && <div>Successfully logged in</div>}
+          {state.status === "failiure" && state.internalErrors && <div>{state.internalErrors}</div>}
         </header>
-        
+         {state.status === "failiure" && <div>{state.email.errors?.concat(",")}</div>}
         <InputField
           type="text"
           name="email"
           label="Email"
           placeholder="someone@something.com"
         />
+         {state.status === "failiure" && <div>{state.password.errors?.concat(",")}</div>}
         <InputField type="password" name="password" label="Password" />
         <Button type="submit" className={styles.button} loading={isPending}>
           Sign in

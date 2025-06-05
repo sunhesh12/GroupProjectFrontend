@@ -68,7 +68,7 @@ export default async function signInAction(
     },
     password: {
       value: previousState.password.value,
-      errors: parsedForm.error.formErrors.fieldErrors.email as string[],
+      errors: parsedForm.error.formErrors.fieldErrors.password as string[],
     },
   };
 }

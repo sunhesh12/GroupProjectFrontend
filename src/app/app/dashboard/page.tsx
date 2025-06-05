@@ -1,4 +1,3 @@
-import {auth} from "@/utils/auth";
 import {redirect} from "next/navigation";
 import {user} from "@/utils/backend";
 import Greeting from "./greeting";
